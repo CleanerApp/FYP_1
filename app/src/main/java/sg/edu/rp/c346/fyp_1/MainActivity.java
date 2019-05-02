@@ -28,11 +28,12 @@ import sg.edu.rp.c346.fyp_1.Model.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    MaterialEditText edtNewUser, edtNewPassword, edtNewEmail;
+    MaterialEditText edtNewUser, edtNewPassword, edtNewEmail, edtSecureCode;
     EditText edtUser, edtPassword;
     TextView tvForgotPassword;
 
     Button btnSignup, btnLogin, btnContact;
+
     FirebaseDatabase database;
     DatabaseReference users;
 
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         edtNewUser = (MaterialEditText)sign_up_layout.findViewById(R.id.edtNewUserName);
         edtNewPassword = (MaterialEditText)sign_up_layout.findViewById(R.id.edtNewPassword);
         edtNewEmail = (MaterialEditText)sign_up_layout.findViewById(R.id.edtNewEmail);
+        edtSecureCode = (MaterialEditText)sign_up_layout.findViewById(R.id.edtSecureCode);
 
         alertDialog.setView(sign_up_layout);
         alertDialog.setIcon(R.drawable.ic_account_box_black_24dp);
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                if (validate()) {
+                /*if (validate()) {
                     String user_email = edtNewEmail.getText().toString().trim();
                     String user_password = edtNewPassword.getText().toString().trim();
 
@@ -150,13 +152,15 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     });
+                    */
 
 
 
 
                 final User user = new User(edtNewUser.getText().toString(),
                         edtNewPassword.getText().toString(),
-                        edtNewEmail.getText().toString());
+                        edtNewEmail.getText().toString(),
+                        edtSecureCode.getText().toString());
 
 
 
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             users.child(user.getUserName())
                                     .setValue(user);
+                            Toast.makeText(MainActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -181,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
                     dialogInterface.dismiss();
                 }
-            }
+
 
 
         });
@@ -201,8 +206,7 @@ public class MainActivity extends AppCompatActivity {
         tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(MainActivity.this, forgotpass.class);
-                startActivity(intent3);
+                showForgotPwdDialog();
             }
         });
 
@@ -234,7 +238,56 @@ public class MainActivity extends AppCompatActivity {
 */
         }
 
-        private Boolean validate(){
+    private void showForgotPwdDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Forgot Password");
+        builder.setMessage("Enter your secret keyword");
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View forgot_view = inflater.inflate(R.layout.activity_forgotpass, null);
+
+        builder.setView(forgot_view);
+        builder.setIcon(R.drawable.ic_security_black_24dp);
+
+        final MaterialEditText edtUsername = forgot_view.findViewById(R.id.edtUsername);
+        final MaterialEditText edtSecureCode = forgot_view.findViewById(R.id.edtSecureCode);
+
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                users.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.child(edtUsername.getText().toString())
+                                .getValue(User.class);
+
+                        if (user.getSecureCode().equals(edtSecureCode.getText().toString())){
+                            Toast.makeText(MainActivity.this, "Your password : " + user.getPassword(), Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Wrong secret keyword", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+        /*private Boolean validate(){
 
             String name = edtNewUser.getText().toString();
             String password = edtNewPassword.getText().toString();
@@ -247,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return false;
-        }
+        */}
 
-    }
+
+

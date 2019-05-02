@@ -15,16 +15,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class forgotpass extends AppCompatActivity {
 
-    EditText edtPasswordEmail;
+    /*EditText edtPasswordEmail;
     Button btnResetPassword;
-    FirebaseAuth firebaseAuth;
+    */ FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpass);
 
-        edtPasswordEmail = findViewById(R.id.edtPasswordEmail);
+        /*edtPasswordEmail = findViewById(R.id.edtPasswordEmail);
         btnResetPassword = findViewById(R.id.btnPasswordReset);
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -53,5 +53,7 @@ public class forgotpass extends AppCompatActivity {
 
             }
         });
+    }
+    */
     }
 }
