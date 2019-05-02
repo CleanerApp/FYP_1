@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
 
 import sg.edu.rp.c346.fyp_1.Model.User;
 
@@ -65,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 showSignUpDialog();
 
-                }
-            });
+            }
+        });
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -79,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void loginIn(final String user, final String pwd){
+    private void loginIn(final String user, final String pwd) {
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(user).exists()){
-                    if (!user.isEmpty()){
+                if (dataSnapshot.child(user).exists()) {
+                    if (!user.isEmpty()) {
                         User login = dataSnapshot.child(user).getValue(User.class);
-                        if(login.getPassword().equals(pwd)){
+                        if (login.getPassword().equals(pwd)) {
                             Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
                         } else {
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showSignUpDialog(){
+    private void showSignUpDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
         alertDialog.setTitle("Sign Up");
         alertDialog.setMessage("Please fill full information");
@@ -116,10 +120,10 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         View sign_up_layout = inflater.inflate(R.layout.sign_up_layout, null);
 
-        edtNewUser = (MaterialEditText)sign_up_layout.findViewById(R.id.edtNewUserName);
-        edtNewPassword = (MaterialEditText)sign_up_layout.findViewById(R.id.edtNewPassword);
-        edtNewEmail = (MaterialEditText)sign_up_layout.findViewById(R.id.edtNewEmail);
-        edtSecureCode = (MaterialEditText)sign_up_layout.findViewById(R.id.edtSecureCode);
+        edtNewUser = (MaterialEditText) sign_up_layout.findViewById(R.id.edtNewUserName);
+        edtNewPassword = (MaterialEditText) sign_up_layout.findViewById(R.id.edtNewPassword);
+        edtNewEmail = (MaterialEditText) sign_up_layout.findViewById(R.id.edtNewEmail);
+        edtSecureCode = (MaterialEditText) sign_up_layout.findViewById(R.id.edtSecureCode);
 
         alertDialog.setView(sign_up_layout);
         alertDialog.setIcon(R.drawable.ic_account_box_black_24dp);
@@ -139,12 +143,15 @@ public class MainActivity extends AppCompatActivity {
                 /*if (validate()) {
                     String user_email = edtNewEmail.getText().toString().trim();
                     String user_password = edtNewPassword.getText().toString().trim();
+                    String user_name = edtNewUser.getText().toString().trim();
 
-                    firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+
+                    firebaseAuth.(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(MainActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(MainActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
@@ -155,34 +162,31 @@ public class MainActivity extends AppCompatActivity {
                     */
 
 
+                    final User user = new User(edtNewUser.getText().toString(),
+                            edtNewPassword.getText().toString(),
+                            edtNewEmail.getText().toString(),
+                            edtSecureCode.getText().toString());
 
 
-                final User user = new User(edtNewUser.getText().toString(),
-                        edtNewPassword.getText().toString(),
-                        edtNewEmail.getText().toString(),
-                        edtSecureCode.getText().toString());
+                    users.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.child(user.getUserName()).exists())
+                                Toast.makeText(MainActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
+                            else {
+                                users.child(user.getUserName())
+                                        .setValue(user);
+                                Toast.makeText(MainActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
 
 
+                            }
+                        }
 
-                users.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child(user.getUserName()).exists())
-                            Toast.makeText(MainActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
-                        else {
-                            users.child(user.getUserName())
-                                    .setValue(user);
-                            Toast.makeText(MainActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                    });
 
                     dialogInterface.dismiss();
                 }
@@ -194,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
 
 
-
         btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent4);
             }
         });
+
 
         tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,7 +240,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 */
-        }
+
+    }
+
 
     private void showForgotPwdDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -261,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                         User user = dataSnapshot.child(edtUsername.getText().toString())
                                 .getValue(User.class);
 
-                        if (user.getSecureCode().equals(edtSecureCode.getText().toString())){
+                        if (user.getSecureCode().equals(edtSecureCode.getText().toString())) {
                             Toast.makeText(MainActivity.this, "Your password : " + user.getPassword(), Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(MainActivity.this, "Wrong secret keyword", Toast.LENGTH_LONG).show();
@@ -287,20 +293,37 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-        /*private Boolean validate(){
+
+
+        /*private Boolean validate() {
 
             String name = edtNewUser.getText().toString();
             String password = edtNewPassword.getText().toString();
             String email = edtNewEmail.getText().toString();
 
-            if (name.isEmpty() || password.isEmpty() || email.isEmpty()){
-                Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
+            if (name.length() == 0) {
+                edtNewUser.requestFocus();
+                edtNewUser.setError("FIELD CANNOT BE EMPTY");
+            } else if (!name.matches("[a-zA-Z ]+")) {
+                edtNewUser.requestFocus();
+                edtNewUser.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+            } else if (password.length() == 0) {
+                edtNewPassword.requestFocus();
+                edtNewPassword.setError("FIELD CANNOT BE EMPTY");
             } else {
-                return true;
+                Toast.makeText(MainActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
             }
 
-            return false;
-        */}
+            return true;
+
+        }
+
+        */
+
+
+
+}
+
 
 
 

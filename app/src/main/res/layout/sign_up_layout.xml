@@ -17,30 +17,32 @@
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtNewUserName"
-            android:hint="User name"
-            android:textColorHint="@color/colorPrimary"
-            android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="User name"
+            android:maxLength="20"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="24sp"
             app:met_baseColor="@color/colorPrimary"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="@color/colorPrimary"
-            app:met_singleLineEllipsis="true"/>
+            app:met_singleLineEllipsis="true" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtNewPassword"
-            android:hint="Password"
-            android:textColorHint="@color/colorPrimary"
-            android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLength="8"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="24sp"
             app:met_baseColor="@color/colorPrimary"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="@color/colorPrimary"
-            app:met_singleLineEllipsis="true"/>
+            app:met_singleLineEllipsis="true" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtNewEmail"
