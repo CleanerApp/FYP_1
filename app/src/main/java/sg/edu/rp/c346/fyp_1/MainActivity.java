@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showSignUpDialog();
-                if (validate()){
-
-                }
 
             }
         });
@@ -272,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        private Boolean validate() {
+        /*private Boolean validate() {
 
             String name = edtNewUser.getText().toString();
             String password = edtNewPassword.getText().toString();
@@ -296,9 +293,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
         }
-
-
-
+        */
 
 
 }
