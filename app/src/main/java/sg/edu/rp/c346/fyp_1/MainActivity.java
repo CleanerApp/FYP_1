@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
     private void showForgotPwdDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Forgot Password");
-        builder.setMessage("Enter your secret keyword");
+        builder.setMessage("Enter your secret code");
 
         LayoutInflater inflater = this.getLayoutInflater();
         View forgot_view = inflater.inflate(R.layout.activity_forgotpass, null);
