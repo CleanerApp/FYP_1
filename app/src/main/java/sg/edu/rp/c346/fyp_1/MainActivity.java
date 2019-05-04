@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginIn(edtUser.getText().toString(), edtPassword.getText().toString());
+
             }
         });
 
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         User login = dataSnapshot.child(user).getValue(User.class);
                         if (login.getPassword().equals(pwd)) {
                             Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+
 
                         } else {
                             Toast.makeText(MainActivity.this, "Wrong username/password", Toast.LENGTH_SHORT).show();
@@ -192,18 +195,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /*btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
 
-                    Intent intent = new Intent(MainActivity.this, login.class);
-                    startActivity(intent);
-
-                }
-            });
-
-    tvsignup.setOnClickListener(new View.OnClickListener() {
+    /*tvsignup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent2 = new Intent (MainActivity.this, forgotpass.class);
