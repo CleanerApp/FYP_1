@@ -28,7 +28,7 @@
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtSecureCode"
-            android:hint="Secret keyword"
+            android:hint="Secret code"
             android:textColorHint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"

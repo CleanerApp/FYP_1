@@ -14,11 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showSignUpDialog();
+                if (validate()){
+
+                }
 
             }
         });
@@ -120,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         View sign_up_layout = inflater.inflate(R.layout.sign_up_layout, null);
 
-        edtNewUser = (MaterialEditText) sign_up_layout.findViewById(R.id.edtNewUserName);
-        edtNewPassword = (MaterialEditText) sign_up_layout.findViewById(R.id.edtNewPassword);
-        edtNewEmail = (MaterialEditText) sign_up_layout.findViewById(R.id.edtNewEmail);
-        edtSecureCode = (MaterialEditText) sign_up_layout.findViewById(R.id.edtSecureCode);
+        edtNewUser = sign_up_layout.findViewById(R.id.edtNewUserName);
+        edtNewPassword = sign_up_layout.findViewById(R.id.edtNewPassword);
+        edtNewEmail = sign_up_layout.findViewById(R.id.edtNewEmail);
+        edtSecureCode = sign_up_layout.findViewById(R.id.edtSecureCode);
 
         alertDialog.setView(sign_up_layout);
         alertDialog.setIcon(R.drawable.ic_account_box_black_24dp);
@@ -139,27 +137,6 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-                /*if (validate()) {
-                    String user_email = edtNewEmail.getText().toString().trim();
-                    String user_password = edtNewPassword.getText().toString().trim();
-                    String user_name = edtNewUser.getText().toString().trim();
-
-
-
-                    firebaseAuth.(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            if (task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(MainActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    });
-                    */
 
 
                     final User user = new User(edtNewUser.getText().toString(),
@@ -270,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                         if (user.getSecureCode().equals(edtSecureCode.getText().toString())) {
                             Toast.makeText(MainActivity.this, "Your password : " + user.getPassword(), Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "Wrong secret keyword", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Wrong secret code", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -295,11 +272,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /*private Boolean validate() {
+        private Boolean validate() {
 
             String name = edtNewUser.getText().toString();
             String password = edtNewPassword.getText().toString();
-            String email = edtNewEmail.getText().toString();
+            //String email = edtNewEmail.getText().toString();
 
             if (name.length() == 0) {
                 edtNewUser.requestFocus();
@@ -310,15 +287,17 @@ public class MainActivity extends AppCompatActivity {
             } else if (password.length() == 0) {
                 edtNewPassword.requestFocus();
                 edtNewPassword.setError("FIELD CANNOT BE EMPTY");
-            } else {
+            }  else {
                 Toast.makeText(MainActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
             }
+
+
 
             return true;
 
         }
 
-        */
+
 
 
 
