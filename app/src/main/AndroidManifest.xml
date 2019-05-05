@@ -11,18 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Home"></activity>
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity android:name=".contactus" />
         <activity android:name=".login" />
         <activity android:name=".forgotpass" />
         <activity android:name=".signup" />
+        <activity android:name=".SecondActivity"/>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".Home" />
+
     </application>
 
 </manifest>
