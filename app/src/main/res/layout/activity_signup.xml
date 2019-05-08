@@ -25,6 +25,23 @@
         app:layout_constraintVertical_bias="0.307" />
 
     <EditText
+        android:id="@+id/etSecureCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Secure Code"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUserPassword"
+        app:layout_constraintVertical_bias="0.068" />
+
+    <EditText
         android:id="@+id/etUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,10 +63,10 @@
         android:id="@+id/etUserPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="7dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -74,7 +91,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUserPassword"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.414" />
 
     <TextView
         android:id="@+id/tvUserLogin"

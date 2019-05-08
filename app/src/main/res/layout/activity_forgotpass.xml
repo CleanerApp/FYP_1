@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtUsername"
+            android:id="@+id/etUserName"
             android:hint="Username"
             android:textColorHint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"
@@ -27,7 +27,7 @@
             app:met_singleLineEllipsis="true"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtSecureCode"
+            android:id="@+id/etSecureCode"
             android:hint="Secret code"
             android:textColorHint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"

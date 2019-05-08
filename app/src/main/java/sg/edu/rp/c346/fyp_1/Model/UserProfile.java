@@ -1,10 +1,11 @@
-package sg.edu.rp.c346.fyp_1;
+package sg.edu.rp.c346.fyp_1.Model;
 
 public class UserProfile {
 
-    public String userEmail;
-    public String userName;
-    public String userPassword;
+    private String userEmail;
+    private String userName;
+    private String userPassword;
+    private String userSecureCode;
 
 
     public UserProfile(){
@@ -12,10 +13,19 @@ public class UserProfile {
     }
 
 
-    public UserProfile(String userEmail, String userName, String userPassword) {
+    public UserProfile(String userEmail, String userName, String userPassword, String userSecureCode) {
         this.userEmail = userEmail;
         this.userName = userName;
         this.userPassword = userPassword;
+        this.userSecureCode = userSecureCode;
+    }
+
+    public String getUserSecureCode() {
+        return userSecureCode;
+    }
+
+    public void setUserSecureCode(String userSecureCode) {
+        this.userSecureCode = userSecureCode;
     }
 
     public String getUserPassword() {

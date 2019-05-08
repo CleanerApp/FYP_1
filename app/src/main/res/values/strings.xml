@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FYP_1</string>
     <string name="signup">Sign Up</string>
-    <string name="forgotpass">Forgot Password</string>
+    <string name="forgotpass">Forgot Password?</string>
     <string name="nameerror">Enter Valid Name</string>
     <string name="emailerror">Enter Valid Email</string>
     <string name="passworderror">Enter Some Password</string>
