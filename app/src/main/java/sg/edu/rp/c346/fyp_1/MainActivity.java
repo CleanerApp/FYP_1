@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        myRef =  firebaseDatabase.getReference("Users");
+        //firebaseDatabase = FirebaseDatabase.getInstance();
+        //myRef =  firebaseDatabase.getReference("Users");
 
 
         progressDialog = new ProgressDialog(this);
@@ -151,8 +151,10 @@ public class MainActivity extends AppCompatActivity {
                             if (document.exists()){
                                 if (etUserName.getText().equals(document.getString("Username"))){
                                     if (etSecureCode.getText().equals(document.getString("SecureCode"))){
-                                        String pass = document.getString("Password");
-                                        Toast.makeText(MainActivity.this, "The password is: " + pass, Toast.LENGTH_SHORT).show();
+                                        String password = document.getString("Password");
+                                        Toast.makeText(MainActivity.this, "The password is: " + password, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "Wrong secure code", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
@@ -186,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     progressDialog.dismiss();
-                    startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                    startActivity(new Intent(MainActivity.this, Home.class));
                     //checkEmailVerification();
                 } else {
                     progressDialog.dismiss();

@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".UpdatePassword"></activity>
         <activity
             android:name=".Home"
             android:label="@string/home_name" />
@@ -25,7 +26,7 @@
         <activity android:name=".login" />
         <activity android:name=".forgotpass" />
         <activity android:name=".signup" />
-        <activity android:name=".SecondActivity"/>
+        <activity android:name=".SecondActivity" />
         <activity android:name=".Pay" />
         <activity android:name=".ProfileActivity" />
     </application>

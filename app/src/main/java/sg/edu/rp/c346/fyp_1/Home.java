@@ -30,7 +30,7 @@ public class Home extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.profile_page:
-                Intent profile = new Intent(Home.this, Profile.class);
+                Intent profile = new Intent(Home.this, ProfileActivity.class);
                 startActivity(profile);
             case R.id.contact_us:
                 Intent us = new Intent(Home.this, contactus.class);

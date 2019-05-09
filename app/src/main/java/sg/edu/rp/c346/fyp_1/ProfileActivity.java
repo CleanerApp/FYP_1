@@ -1,8 +1,11 @@
 package sg.edu.rp.c346.fyp_1;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     ImageView profilePic;
     TextView profileName, profileEmail, profileCode;
+    Button logout, changePassword;
 
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
@@ -35,6 +39,10 @@ public class ProfileActivity extends AppCompatActivity {
         profileName = findViewById(R.id.tvProfileName);
         profileEmail = findViewById(R.id.tvProfileEmail);
         profileCode = findViewById(R.id.tvSecureCode);
+
+
+        logout = findViewById(R.id.btnLogout);
+        changePassword = findViewById(R.id.btnChangePassword);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -56,8 +64,33 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
 
             }
+
+
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logout();
+            }
+        });
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, UpdatePassword.class));
+
+            }
         });
 
 
     }
+
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+    }
+
+
 }
