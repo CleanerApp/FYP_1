@@ -78,12 +78,10 @@ public class ProfileActivity extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, UpdatePassword.class));
+                //startActivity(new Intent(ProfileActivity.this, UpdatePassword.class));
 
             }
         });
-
-
     }
 
     private void Logout(){
@@ -92,5 +90,8 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(new Intent(ProfileActivity.this, MainActivity.class));
     }
 
-
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+    }
 }

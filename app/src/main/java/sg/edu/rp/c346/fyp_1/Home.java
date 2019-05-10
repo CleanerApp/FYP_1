@@ -29,6 +29,9 @@ public class Home extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.sign_in:
+                Intent sign = new Intent(Home.this, MainActivity.class);
+                startActivity(sign);
             case R.id.profile_page:
                 Intent profile = new Intent(Home.this, ProfileActivity.class);
                 startActivity(profile);
@@ -38,5 +41,10 @@ public class Home extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
     }
 }

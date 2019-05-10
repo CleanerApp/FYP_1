@@ -10,4 +10,9 @@ public class contactus extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contactus);
     }
+
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+    }
 }

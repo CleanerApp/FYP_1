@@ -206,6 +206,11 @@ public class signup extends AppCompatActivity {
         UserProfile userProfile = new UserProfile(email, name, password, securecode);
         myRef.setValue(userProfile);
     }
+
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+    }
 }
 
 

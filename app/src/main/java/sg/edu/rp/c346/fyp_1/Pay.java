@@ -10,4 +10,9 @@ public class Pay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
     }
+
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+    }
 }

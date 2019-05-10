@@ -17,7 +17,7 @@ public class forgotpass extends AppCompatActivity {
 
     /*EditText edtPasswordEmail;
     Button btnResetPassword;
-    */ FirebaseAuth firebaseAuth;
+     FirebaseAuth firebaseAuth;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

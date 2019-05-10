@@ -64,14 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-
         /*if (user != null){
             finish();
             startActivity(new Intent(MainActivity.this, SecondActivity.class));
         }
         */
-
-
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,20 +93,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /*tvsignup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,9 +100,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent2);
                 }
             });
-
-
-
 */
     }
 
@@ -212,6 +192,11 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.signOut();
         }
 
+    }
+
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
     }
 
 }

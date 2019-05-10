@@ -40,8 +40,6 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     private void Logout(){
@@ -50,5 +48,8 @@ public class SecondActivity extends AppCompatActivity {
         startActivity(new Intent(SecondActivity.this, MainActivity.class));
     }
 
-
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+    }
 }
