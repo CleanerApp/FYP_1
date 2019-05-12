@@ -8,6 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,15 +35,10 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
-
-
     EditText edtUser, edtPassword;
     TextView userSignUp;
     Button btnLogin;
 
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference myRef;
     ProgressDialog progressDialog;
     TextView tvForgotPassword;
 
@@ -54,13 +52,6 @@ public class MainActivity extends AppCompatActivity {
         userSignUp = findViewById(R.id.tvSignUp);
         btnLogin = findViewById(R.id.btnlogin);
         tvForgotPassword = findViewById(R.id.tvForgotPwd);
-
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        //firebaseDatabase = FirebaseDatabase.getInstance();
-        //myRef =  firebaseDatabase.getReference("Users");
-
 
         progressDialog = new ProgressDialog(this);
 
@@ -129,21 +120,20 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()){
-                                if (etUserName.getText().equals(document.getString("Username"))){
-                                    if (etSecureCode.getText().equals(document.getString("SecureCode"))){
+                                if (etUserName.getText().toString().equals(document.getString("Username"))){
+                                    if (etSecureCode.getText().toString().equals(document.getString("SecureCode"))){
                                         String password = document.getString("Password");
                                         Toast.makeText(MainActivity.this, "The password is: " + password, Toast.LENGTH_LONG).show();
                                     } else {
                                         Toast.makeText(MainActivity.this, "Wrong secure code", Toast.LENGTH_SHORT).show();
                                     }
+                                } else{
+                                    Toast.makeText(MainActivity.this, "Wrong Username", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
                     }
                 });
-
-
-
             }
         });
 
@@ -153,35 +143,41 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         builder.show();
     }
 
-
-
-    private void validate(String userName, String userPassword) {
+    private void validate(final String userName, final String userPassword) {
         progressDialog.setMessage("Verifying your account.... ");
         progressDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(userName, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    progressDialog.dismiss();
-                    startActivity(new Intent(MainActivity.this, Home.class));
-                    //checkEmailVerification();
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final DocumentReference docRef = db.collection("User").document("DOTlnSFpzK59YGnsmy6w");
 
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                        if (userName.equals(document.getString("Username"))){
+                            if (userPassword.equals(document.getString("Password"))){
+                                progressDialog.dismiss();
+                                startActivity(new Intent(MainActivity.this, Home.class));
+                                //checkEmailVerification();
+                            } else{
+                                Toast.makeText(MainActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+                            }
+                        } else{
+                            progressDialog.dismiss();
+                            Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
         });
-
     }
 
-    private void checkEmailVerification() {
-        FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+    /*private void checkEmailVerification() {
         Boolean emailflag = firebaseUser.isEmailVerified();
 
         if(emailflag){
@@ -192,13 +188,31 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.signOut();
         }
 
+    }*/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu, menu);
+        return true;
     }
 
     @Override
-    public void onBackPressed () {
-        super.onBackPressed();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent home = new Intent(MainActivity.this, Home.class);
+                startActivity(home);
+            case R.id.sign_in:
+                Intent sign = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(sign);
+            case R.id.contact_us:
+                Intent us = new Intent(MainActivity.this, contactus.class);
+                startActivity(us);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
-
 }
 
 

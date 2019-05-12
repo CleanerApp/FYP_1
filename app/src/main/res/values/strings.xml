@@ -27,8 +27,8 @@
     <string name="total">Total Pricing:</string>
     <string name="promo">Promo Code</string>
     <string name="Final">Final Pricing:</string>
+    <string name="company">Greentac Pte Ltd </string>
 
-    <!-- TODO: Arrays -->
     <string-array name="services">
         <item>Select A Service</item>
         <item>Clean up</item>
