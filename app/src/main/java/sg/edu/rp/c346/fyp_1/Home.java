@@ -29,6 +29,7 @@ public class Home extends AppCompatActivity {
     int currentHour;
     int currentMinute;
     String amPm;
+    Boolean Date, Time, Street, Postal, Contact, Email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +38,18 @@ public class Home extends AppCompatActivity {
 
         spn = findViewById(R.id.spinnerService);
         etDate = findViewById(R.id.editTextDate);
+        Date = false;
         etTime = findViewById(R.id.editTextStart);
+        Time = false;
         etStreet = findViewById(R.id.editTextStreet);
+        Street = false;
         etPostal = findViewById(R.id.editTextPostal);
+        Postal = false;
         etNote = findViewById(R.id.editTextAddtional);
         etContact = findViewById(R.id.editTextContact);
+        Contact = false;
         etEmail = findViewById(R.id.editTextEmail);
+        Email = false;
         btnProceed = findViewById(R.id.button);
 
         btnProceed.setOnClickListener(new View.OnClickListener() {
@@ -50,26 +57,38 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 if (etDate.getText().toString().equalsIgnoreCase("")){
                     etDate.setError("Date is required!");
+                } else{
+                    Date = true;
                 }
                 if (etTime.getText().toString().equalsIgnoreCase("")){
                     etTime.setError("Time is required!");
+                } else{
+                    Time = true;
                 }
                 if (etStreet.getText().toString().equalsIgnoreCase("")){
                     etStreet.setError("Street is required!");
+                } else{
+                    Street = true;
                 }
                 if (etPostal.getText().toString().equalsIgnoreCase("")){
                     etPostal.setError("Postal Code is required!");
+                } else{
+                    Postal = true;
                 }
                 if (etContact.getText().toString().equalsIgnoreCase("")){
                     etContact.setError("Contact is required!");
+                } else{
+                    Contact = true;
                 }
                 if (etEmail.getText().toString().equalsIgnoreCase("")){
                     etEmail.setError("Email is required!");
-                }
-                if (etDate.getText().toString().equalsIgnoreCase("") && etTime.getText().toString().equalsIgnoreCase("") && etStreet.getText().toString().equalsIgnoreCase("") && etPostal.getText().toString().equalsIgnoreCase("") && etContact.getText().toString().equalsIgnoreCase("") && etEmail.getText().toString().equalsIgnoreCase("")) {
-                    Toast.makeText(Home.this, "Fill in all Required fields", Toast.LENGTH_LONG).show();
                 } else{
+                    Email = true;
+                }
+                if (Date == true && Time == true && Street == true && Postal == true && Contact == true && Email == true) {
                     startActivity(new Intent(Home.this, Pay.class));
+                } else{
+                    Toast.makeText(Home.this, "Fill in all Required fields", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -129,15 +148,19 @@ public class Home extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.home:
                 startActivity(new Intent(Home.this, Home.class));
-                break;
+                return true;
             case R.id.sign_in:
                 startActivity(new Intent(Home.this, MainActivity.class));
-                break;
+                return true;
             case R.id.contact_us:
                 startActivity(new Intent(Home.this, contactus.class));
-                break;
+                return true;
+            case R.id.view_service:
+                startActivity(new Intent(Home.this, ViewActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
 }

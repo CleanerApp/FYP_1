@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ViewActivity"></activity>
+        <activity android:name=".ServiceList"></activity>
+        <activity
+            android:name=".ViewActivity"
+            android:label="@string/view_name" />
         <activity
             android:name=".Home"
             android:label="@string/home_name">
@@ -21,8 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".contactus" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/sign_in" />
+        <activity
+            android:name=".contactus"
+            android:label="@string/contact_us" />
         <activity android:name=".login" />
         <activity android:name=".forgotpass" />
         <activity android:name=".signup" />

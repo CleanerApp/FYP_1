@@ -201,14 +201,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Intent home = new Intent(MainActivity.this, Home.class);
-                startActivity(home);
+                startActivity(new Intent(MainActivity.this, Home.class));
+                return true;
             case R.id.sign_in:
-                Intent sign = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(sign);
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                return true;
             case R.id.contact_us:
-                Intent us = new Intent(MainActivity.this, contactus.class);
-                startActivity(us);
+                startActivity(new Intent(MainActivity.this, contactus.class));
+                return true;
+            case R.id.view_service:
+                startActivity(new Intent(MainActivity.this, ViewActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

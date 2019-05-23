@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">FYP_1</string>
+    <string name="view_name">View Services</string>
     <string name="signup">Sign Up</string>
     <string name="sign_in">Sign In</string>
     <string name="forgotpass">Forgot Password</string>
@@ -28,6 +29,7 @@
     <string name="promo">Promo Code</string>
     <string name="Final">Final Pricing:</string>
     <string name="company">Greentac Pte Ltd </string>
+    <string name="view">View Services</string>
 
     <string-array name="services">
         <item>Select A Service</item>

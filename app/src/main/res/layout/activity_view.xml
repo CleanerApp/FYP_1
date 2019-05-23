@@ -9,17 +9,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/nopicture" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_weight="1"
@@ -29,22 +31,41 @@
                 android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name" />
+                android:layout_weight="1"
+                android:text="Name"
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/textViewCost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cost" />
+                android:layout_weight="1"
+                android:text="Cost"
+                android:textSize="24sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <MultiAutoCompleteTextView
-        android:id="@+id/textViewDetail"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:background="@null"
-        android:text="Details" />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/textViewDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:background="@null"
+                android:focusable="false"
+                android:gravity="top"
+                android:text="Details" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

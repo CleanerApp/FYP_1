@@ -74,14 +74,17 @@ DocumentReference docRef = db.collection("Company").document("p4C5WYZfyCbGkXHsLd
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Intent home = new Intent(contactus.this, Home.class);
-                startActivity(home);
+                startActivity(new Intent(contactus.this, Home.class));
+                return true;
             case R.id.sign_in:
-                Intent sign = new Intent(contactus.this, MainActivity.class);
-                startActivity(sign);
+                startActivity(new Intent(contactus.this, MainActivity.class));
+                return true;
             case R.id.contact_us:
-                Intent us = new Intent(contactus.this, contactus.class);
-                startActivity(us);
+                startActivity(new Intent(contactus.this, contactus.class));
+                return true;
+            case R.id.view_service:
+                startActivity(new Intent(contactus.this, ViewActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
