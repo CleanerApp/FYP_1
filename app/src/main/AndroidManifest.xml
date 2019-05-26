@@ -32,9 +32,11 @@
             android:label="@string/contact_us" />
         <activity android:name=".login" />
         <activity android:name=".forgotpass" />
-        <activity android:name=".signup" />
+        <activity android:name=".signup"
+                  android:label="Sign up"/>
         <activity android:name=".SecondActivity" />
-        <activity android:name=".Pay" />
+        <activity android:name=".Pay"
+                  android:label="Paying" />
         <activity android:name=".ProfileActivity" />
     </application>
 

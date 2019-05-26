@@ -19,20 +19,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
     EditText edtUser, edtPassword;
@@ -41,11 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     TextView tvForgotPassword;
+    Boolean Username, Password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Username = false;
+        Password = false;
 
         edtUser = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
@@ -64,7 +58,21 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validate(edtUser.getText().toString(), edtPassword.getText().toString());
+                if (edtUser.getText().toString().equals("")){
+                    edtUser.setError("Username required");
+                } else{
+                    Username = true;
+                }
+                if (edtPassword.getText().toString().equals("")){
+                    edtPassword.setError("Password required");
+                } else{
+                    Password = true;
+                }
+                if (Username == true && Password == true){
+                    validate(edtUser.getText().toString(), edtPassword.getText().toString());
+                } else{
+                    Toast.makeText(MainActivity.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

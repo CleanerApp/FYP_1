@@ -1,9 +1,12 @@
 package sg.edu.rp.c346.fyp_1;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -40,7 +43,6 @@ public class ServiceList extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 String name = (String) document.getData().get("Name");
                                 alService.add(name);
                             }
@@ -49,5 +51,15 @@ public class ServiceList extends AppCompatActivity {
                         lvService.setAdapter(aaService);
                     }
                 });
+
+        lvService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Service selected = alService.get(position);
+                Intent intent = new Intent(ServiceList.this, ViewActivity.class);
+//                intent.putExtra("select", selected);
+                startActivity(intent);
+            }
+        });
     }
 }

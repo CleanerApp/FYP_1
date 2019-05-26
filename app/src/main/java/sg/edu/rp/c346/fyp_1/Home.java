@@ -13,12 +13,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Home extends AppCompatActivity {
+    TextView tvError;
     Spinner spn;
     EditText etDate, etTime, etStreet, etPostal, etNote, etContact, etEmail;
     Button btnProceed;
@@ -29,14 +32,16 @@ public class Home extends AppCompatActivity {
     int currentHour;
     int currentMinute;
     String amPm;
-    Boolean Date, Time, Street, Postal, Contact, Email;
+    Boolean Service, Date, Time, Street, Postal, Contact, Email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        tvError = findViewById(R.id.textViewInvisible);
         spn = findViewById(R.id.spinnerService);
+        Service = false;
         etDate = findViewById(R.id.editTextDate);
         Date = false;
         etTime = findViewById(R.id.editTextStart);
@@ -55,6 +60,11 @@ public class Home extends AppCompatActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (spn.getSelectedItem().toString().equalsIgnoreCase("Select a Service")){
+                    tvError.setError("Select a Service");
+                } else{
+                    Service = true;
+                }
                 if (etDate.getText().toString().equalsIgnoreCase("")){
                     etDate.setError("Date is required!");
                 } else{
@@ -86,16 +96,33 @@ public class Home extends AppCompatActivity {
                     Email = true;
                 }
                 if (Date == true && Time == true && Street == true && Postal == true && Contact == true && Email == true) {
-                    startActivity(new Intent(Home.this, Pay.class));
+                    Intent intent = new Intent(Home.this, Pay.class);
+                    intent.putExtra("Date", etDate.getText().toString());
+                    intent.putExtra("Time", etTime.getText().toString());
+                    intent.putExtra("Street", etStreet.getText().toString());
+                    intent.putExtra("Postal", etPostal.getText().toString());
+                    intent.putExtra("Note", etNote.getText().toString());
+                    intent.putExtra("Contact", etContact.getText().toString());
+                    intent.putExtra("Email", etEmail.getText().toString());
+                    startActivity(intent);
                 } else{
                     Toast.makeText(Home.this, "Fill in all Required fields", Toast.LENGTH_LONG).show();
                 }
+                spn.setSelection(0);
+                etDate.setText("");
+                etTime.setText("");
+                etStreet.setText("");
+                etPostal.setText("");
+                etNote.setText("");
+                etContact.setText("");
+                etEmail.setText("");
             }
         });
 
         etDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);

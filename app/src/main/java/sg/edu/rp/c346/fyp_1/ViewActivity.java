@@ -38,8 +38,8 @@ public class ViewActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                     tvName.setText(documentSnapshot.getString("Name"));
-                    tvCost.setText(documentSnapshot.getString("Cost"));
-                    tvDetail.setText(documentSnapshot.getString("Detail"));
+                    tvCost.setText("Cost: " + documentSnapshot.getString("Cost"));
+                    tvDetail.setText("Description: \n" + documentSnapshot.getString("Detail"));
                 }
             }
         });

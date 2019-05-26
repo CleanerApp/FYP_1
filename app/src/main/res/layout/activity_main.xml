@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/alert_dark_frame" />
+        app:srcCompat="@drawable/company" />
 
     <EditText
         android:id="@+id/edtUsername"
@@ -32,7 +32,7 @@
         android:layout_marginEnd="89dp"
         android:layout_marginRight="89dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Username"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

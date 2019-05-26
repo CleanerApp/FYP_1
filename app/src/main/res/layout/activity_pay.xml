@@ -34,7 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="15"
-            android:gravity="right" />
+            android:gravity="right"
+            android:text="$36"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,12 +52,14 @@
             android:ems="10"
             android:text="@string/promo" />
 
-        <Spinner
-            android:id="@+id/spinnerPromo"
+        <EditText
+            android:id="@+id/editTextPromo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="15"/>
+            android:ems="12"
+            android:inputType="textPersonName"
+            android:text="Promo Code" />
 
     </LinearLayout>
 
@@ -78,7 +82,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="15"
-            android:gravity="right" />
+            android:gravity="right"
+            android:text="$36"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="Confirm" />
+
 </LinearLayout>
