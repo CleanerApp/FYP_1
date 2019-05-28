@@ -12,13 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 import sg.edu.rp.c346.fyp_1.Model.UserProfile;
@@ -29,6 +33,7 @@ public class signup extends AppCompatActivity {
     Button btnRegister;
     TextView userLogin;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore docRef;
     String email, name, password, securecode;
 
     private static final Pattern PASSWORD_PATTERN =
@@ -59,23 +64,33 @@ public class signup extends AppCompatActivity {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
+        docRef = FirebaseFirestore.getInstance();
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 if (validate()) {
-                    String user_email = userEmail.getText().toString().trim();
-                    String user_password = userPassword.getText().toString().trim();
+                    final String user_email = userEmail.getText().toString().trim();
+                    final String user_password = userPassword.getText().toString().trim();
 
                     firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //sendEmailVerification();
-                                sendUserData();
-                                Toast.makeText(signup.this, "Successfully Registered, Upload complete", Toast.LENGTH_SHORT).show();
-                                finish();
-                                startActivity(new Intent(signup.this, MainActivity.class));
+                                //sendUserData();
+                                UserProfile userProfile = new UserProfile(email, name, password, securecode);
+                                docRef.collection("users").document(user_email).set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(signup.this, "Successfully Registered, Upload complete", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        startActivity(new Intent(signup.this, MainActivity.class));
+                                    }
+                                });
+
 
                             } else {
                                 Toast.makeText(signup.this, "Registration Failed", Toast.LENGTH_SHORT).show();
@@ -85,7 +100,6 @@ public class signup extends AppCompatActivity {
                     });
 
                 }
-
             }
         });
 
@@ -153,7 +167,7 @@ public class signup extends AppCompatActivity {
             userPassword.setError("Field can't be empty");
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            userPassword.setError("Password too weak");
+            userPassword.setError("Password too weak, must contain at least one special character");
             return false;
         } else {
             userPassword.setError(null);
@@ -207,9 +221,31 @@ public class signup extends AppCompatActivity {
         myRef.setValue(userProfile);
     }
 
-    @Override
-    public void onBackPressed () {
-        super.onBackPressed();
+    public void computerMD5Hash(String password){
+        try{
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(password.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            StringBuffer MD5Hash = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++){
+                String h = Integer.toHexString(0xFF & messageDigest[i]);
+                while (h.length() < 2){
+                    h = "0" + h;
+                    MD5Hash.append(h);
+
+                }
+
+
+                userPassword.setText(MD5Hash);
+
+            }
+
+
+
+        } catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
     }
 }
 

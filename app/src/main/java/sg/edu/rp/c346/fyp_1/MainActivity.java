@@ -3,6 +3,7 @@ package sg.edu.rp.c346.fyp_1;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     TextView tvForgotPassword;
     Boolean Username, Password;
+
+    FirebaseFirestore docRef;
+    FirebaseAuth firebaseAuth;
+    String email, name, password, securecode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
+
+
         /*if (user != null){
             finish();
             startActivity(new Intent(MainActivity.this, SecondActivity.class));
@@ -58,14 +70,17 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtUser.getText().toString().equals("")){
+
+
+
+                if (edtUser.getText().toString().equals("")) {
                     edtUser.setError("Username required");
-                } else{
+                } else {
                     Username = true;
                 }
-                if (edtPassword.getText().toString().equals("")){
+                if (edtPassword.getText().toString().equals("")) {
                     edtPassword.setError("Password required");
-                } else{
+                } else {
                     Password = true;
                 }
                 if (Username == true && Password == true){
@@ -73,10 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 } else{
                     Toast.makeText(MainActivity.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
         userSignUp.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, signup.class));
@@ -102,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 */
     }
 
+
     private void showForgotPwdDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Forgot Password");
@@ -117,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         final MaterialEditText etSecureCode = forgot_view.findViewById(R.id.etSecureCode);
 
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final DocumentReference docRef = db.collection("User").document("DOTlnSFpzK59YGnsmy6w");
+        final DocumentReference docRef = db.collection("users").document("DOTlnSFpzK59YGnsmy6w");
 
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
@@ -125,17 +143,18 @@ public class MainActivity extends AppCompatActivity {
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            if (document.exists()){
-                                if (etUserName.getText().toString().equals(document.getString("Username"))){
-                                    if (etSecureCode.getText().toString().equals(document.getString("SecureCode"))){
+                            if (document.exists()) {
+                                if (etUserName.getText().toString().equals(document.getString("Username"))) {
+                                    if (etSecureCode.getText().toString().equals(document.getString("SecureCode"))) {
+
                                         String password = document.getString("Password");
                                         Toast.makeText(MainActivity.this, "The password is: " + password, Toast.LENGTH_LONG).show();
                                     } else {
                                         Toast.makeText(MainActivity.this, "Wrong secure code", Toast.LENGTH_SHORT).show();
                                     }
-                                } else{
+                                } else {
                                     Toast.makeText(MainActivity.this, "Wrong Username", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -154,12 +173,15 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void validate(final String userName, final String userPassword) {
-        progressDialog.setMessage("Verifying your account.... ");
-        progressDialog.show();
 
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final DocumentReference docRef = db.collection("User").document("DOTlnSFpzK59YGnsmy6w");
+    private void validate(final String userEmail, final String userPassword) {
+            progressDialog.setMessage("Verifying your account.... ");
+            progressDialog.show();
+
+
+
+            final FirebaseFirestore db = FirebaseFirestore.getInstance();
+            final DocumentReference docRef = db.collection("users").document(userEmail);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -167,12 +189,13 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()){
-                        if (userName.equals(document.getString("Username"))){
-                            if (userPassword.equals(document.getString("Password"))){
+                        if (userEmail.equals(document.getString("userEmail"))){
+                            if (userPassword.equals(document.getString("userPassword"))){
                                 progressDialog.dismiss();
                                 startActivity(new Intent(MainActivity.this, Home.class));
                                 //checkEmailVerification();
                             } else{
+                                progressDialog.dismiss();
                                 Toast.makeText(MainActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                             }
                         } else{
@@ -185,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+
+
     /*private void checkEmailVerification() {
         Boolean emailflag = firebaseUser.isEmailVerified();
 
@@ -192,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(MainActivity.this, SecondActivity.class));
         }  else {
-            Toast.makeText(this, "Verify your email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(his, "Verify your email", Toast.LENGTH_SHORT).show();
             firebaseAuth.signOut();
         }
 
@@ -224,15 +252,14 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private Boolean validate() {
+        Boolean result = false;
+
+        name = edtUser.getText().toString();
+        password = edtPassword.getText().toString();
+
+
+        return result;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
