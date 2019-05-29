@@ -73,8 +73,6 @@ public class signup extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (validate()) {
                     final String user_email = userEmail.getText().toString();
                     final String user_password = userPassword.getText().toString();

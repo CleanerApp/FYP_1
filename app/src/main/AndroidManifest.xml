@@ -38,6 +38,7 @@
         <activity android:name=".Pay"
                   android:label="Paying" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".UpdatePassword"/>
     </application>
 
 </manifest>
