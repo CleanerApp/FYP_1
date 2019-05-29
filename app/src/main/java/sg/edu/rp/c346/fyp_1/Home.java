@@ -105,17 +105,17 @@ public class Home extends AppCompatActivity {
                     intent.putExtra("Contact", etContact.getText().toString());
                     intent.putExtra("Email", etEmail.getText().toString());
                     startActivity(intent);
+                    spn.setSelection(0);
+                    etDate.setText("");
+                    etTime.setText("");
+                    etStreet.setText("");
+                    etPostal.setText("");
+                    etNote.setText("");
+                    etContact.setText("");
+                    etEmail.setText("");
                 } else{
                     Toast.makeText(Home.this, "Fill in all Required fields", Toast.LENGTH_LONG).show();
                 }
-                spn.setSelection(0);
-                etDate.setText("");
-                etTime.setText("");
-                etStreet.setText("");
-                etPostal.setText("");
-                etNote.setText("");
-                etContact.setText("");
-                etEmail.setText("");
             }
         });
 
@@ -189,5 +189,4 @@ public class Home extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

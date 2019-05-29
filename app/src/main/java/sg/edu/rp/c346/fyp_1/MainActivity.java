@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.show();
 
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final DocumentReference docRef = db.collection("User").document("DOTlnSFpzK59YGnsmy6w");
+        final DocumentReference docRef = db.collection("users").document(userEmail);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

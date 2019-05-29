@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -75,8 +76,8 @@ public class signup extends AppCompatActivity {
 
 
                 if (validate()) {
-                    final String user_email = userEmail.getText().toString().trim();
-                    final String user_password = userPassword.getText().toString().trim();
+                    final String user_email = userEmail.getText().toString();
+                    final String user_password = userPassword.getText().toString();
                     user.put("Email", user_email);
                     user.put("Password", user_password);
                     user.put("Username", userName.getText().toString());
@@ -96,13 +97,14 @@ public class signup extends AppCompatActivity {
                                         finish();
                                         startActivity(new Intent(signup.this, MainActivity.class));
                                     }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(signup.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                                    }
                                 });
 
-
-                            } else {
-                                Toast.makeText(signup.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     });
 
