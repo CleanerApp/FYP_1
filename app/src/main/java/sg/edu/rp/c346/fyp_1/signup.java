@@ -19,10 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import sg.edu.rp.c346.fyp_1.Model.UserProfile;
@@ -35,6 +38,8 @@ public class signup extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore docRef;
     String email, name, password, securecode;
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    final Map<String, String> user = new HashMap<>();
 
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
@@ -53,9 +58,7 @@ public class signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-
-
-        userName = findViewById(R.id.etUserName);
+        userName = findViewById(R.id.etEmail);
         userPassword = findViewById(R.id.etUserPassword);
         userEmail = findViewById(R.id.etUserEmail);
         btnRegister = findViewById(R.id.btnRegister);
@@ -74,6 +77,10 @@ public class signup extends AppCompatActivity {
                 if (validate()) {
                     final String user_email = userEmail.getText().toString().trim();
                     final String user_password = userPassword.getText().toString().trim();
+                    user.put("Email", user_email);
+                    user.put("Password", user_password);
+                    user.put("Username", userName.getText().toString());
+                    user.put("SecureCode", userSecureCode.getText().toString());
 
                     firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -100,6 +107,7 @@ public class signup extends AppCompatActivity {
                     });
 
                 }
+
             }
         });
 
@@ -219,6 +227,13 @@ public class signup extends AppCompatActivity {
         DatabaseReference myRef = firebaseDatabase.getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         UserProfile userProfile = new UserProfile(email, name, password, securecode);
         myRef.setValue(userProfile);
+        db.collection("User")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                    }
+                });
     }
 
     public void computerMD5Hash(String password){

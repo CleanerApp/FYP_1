@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-
-
         /*if (user != null){
             finish();
             startActivity(new Intent(MainActivity.this, SecondActivity.class));
@@ -70,17 +68,14 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
-                if (edtUser.getText().toString().equals("")) {
+                if (edtUser.getText().toString().equals("")){
                     edtUser.setError("Username required");
-                } else {
+                } else{
                     Username = true;
                 }
-                if (edtPassword.getText().toString().equals("")) {
+                if (edtPassword.getText().toString().equals("")){
                     edtPassword.setError("Password required");
-                } else {
+                } else{
                     Password = true;
                 }
                 if (Username == true && Password == true){
@@ -88,12 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 } else{
                     Toast.makeText(MainActivity.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
         userSignUp.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, signup.class));
@@ -119,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
 */
     }
 
-
     private void showForgotPwdDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Forgot Password");
@@ -131,30 +123,32 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(forgot_view);
         builder.setIcon(R.drawable.ic_security_black_24dp);
 
-        final MaterialEditText etUserName = forgot_view.findViewById(R.id.etUserName);
+        final MaterialEditText etEmail = forgot_view.findViewById(R.id.etEmail);
         final MaterialEditText etSecureCode = forgot_view.findViewById(R.id.etSecureCode);
 
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final DocumentReference docRef = db.collection("users").document("DOTlnSFpzK59YGnsmy6w");
 
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                db.collection("users").document(etEmail.getText().toString())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful()){
                             DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                if (etUserName.getText().toString().equals(document.getString("Username"))) {
-                                    if (etSecureCode.getText().toString().equals(document.getString("SecureCode"))) {
-
-                                        String password = document.getString("Password");
-                                        Toast.makeText(MainActivity.this, "The password is: " + password, Toast.LENGTH_LONG).show();
+                            if (document.exists()){
+                                if (etEmail.getText().toString().equals(document.getString("userEmail"))){
+                                    if (etSecureCode.getText().toString().equals(document.getString("userSecureCode"))){
+                                        db.collection("users").document(etEmail.getText().toString())
+                                                .update("userPassword", "Password123");
+                                        String password = document.getString("userPassword");
+                                        Toast.makeText(MainActivity.this, "The password is: Password123", Toast.LENGTH_LONG).show();
                                     } else {
                                         Toast.makeText(MainActivity.this, "Wrong secure code", Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
+                                } else{
                                     Toast.makeText(MainActivity.this, "Wrong Username", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -178,10 +172,8 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setMessage("Verifying your account.... ");
             progressDialog.show();
 
-
-
-            final FirebaseFirestore db = FirebaseFirestore.getInstance();
-            final DocumentReference docRef = db.collection("users").document(userEmail);
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final DocumentReference docRef = db.collection("User").document("DOTlnSFpzK59YGnsmy6w");
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -208,11 +200,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-
-
     /*private void checkEmailVerification() {
         Boolean emailflag = firebaseUser.isEmailVerified();
 
@@ -220,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(MainActivity.this, SecondActivity.class));
         }  else {
-            Toast.makeText(his, "Verify your email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Verify your email", Toast.LENGTH_SHORT).show();
             firebaseAuth.signOut();
         }
 
@@ -252,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     private Boolean validate() {
         Boolean result = false;
