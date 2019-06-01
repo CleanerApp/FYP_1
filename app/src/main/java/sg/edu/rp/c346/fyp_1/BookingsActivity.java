@@ -60,7 +60,10 @@ public class BookingsActivity extends AppCompatActivity {
         lvBookings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Bookings b = alBookings.get(position);
+                Intent i = new Intent(BookingsActivity.this, EditBookings.class);
+                i.putExtra("booking", b);
+                startActivity(i);
             }
         });
 

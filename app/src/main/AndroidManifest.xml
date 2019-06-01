@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".BookingsActivity"
+        <activity android:name=".EditBookings"></activity>
+        <activity
+            android:name=".BookingsActivity"
             android:label="View Bookings" />
         <activity android:name=".ServiceList" />
         <activity
