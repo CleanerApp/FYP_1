@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ServiceList"></activity>
+        <activity android:name=".BookingsActivity"
+            android:label="View Bookings" />
+        <activity android:name=".ServiceList" />
         <activity
             android:name=".ViewActivity"
             android:label="@string/view_name" />
@@ -32,13 +34,15 @@
             android:label="@string/contact_us" />
         <activity android:name=".login" />
         <activity android:name=".forgotpass" />
-        <activity android:name=".signup"
-                  android:label="Sign up"/>
+        <activity
+            android:name=".signup"
+            android:label="Sign up" />
         <activity android:name=".SecondActivity" />
-        <activity android:name=".Pay"
-                  android:label="Paying" />
+        <activity
+            android:name=".Pay"
+            android:label="Paying" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".UpdatePassword"/>
+        <activity android:name=".UpdatePassword" />
     </application>
 
 </manifest>

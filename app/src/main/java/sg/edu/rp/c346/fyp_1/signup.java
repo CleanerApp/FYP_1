@@ -224,7 +224,7 @@ public class signup extends AppCompatActivity {
 
     private void sendUserData(){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference myRef = firebaseDatabase.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         UserProfile userProfile = new UserProfile(email, name, password, securecode);
         myRef.setValue(userProfile);
         db.collection("User")

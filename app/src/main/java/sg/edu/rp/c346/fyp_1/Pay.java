@@ -38,7 +38,7 @@ public class Pay extends AppCompatActivity {
         String postal = i.getStringExtra("Postal");
         String note = i.getStringExtra("Note");
         String contact = i.getStringExtra("Contact");
-        String email = i.getStringExtra("Email");
+        final String email = i.getStringExtra("Email");
 
         final Map<String, String> booking = new HashMap<>();
         if (note.isEmpty() == false){
@@ -59,20 +59,18 @@ public class Pay extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("Booking")
-                        .add(booking)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(Pay.this, "Service Booked", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Pay.this, "Service Failed to Book", Toast.LENGTH_LONG).show();
-                            }
-                        });
+                db.collection("Booking").document(email)
+                        .set(booking).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Pay.this, "Booking Recorded", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Pay.this, "Booking Failure to Record", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 finish();
             }
         });

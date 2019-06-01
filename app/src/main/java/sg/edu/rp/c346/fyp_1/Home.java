@@ -185,6 +185,9 @@ public class Home extends AppCompatActivity {
             case R.id.view_service:
                 startActivity(new Intent(Home.this, ViewActivity.class));
                 return true;
+            case R.id.view_bookings:
+                startActivity(new Intent(Home.this, BookingsActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

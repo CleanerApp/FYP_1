@@ -67,6 +67,9 @@ public class ViewActivity extends AppCompatActivity {
             case R.id.view_service:
                 startActivity(new Intent(ViewActivity.this, ViewActivity.class));
                 return true;
+            case R.id.view_bookings:
+                startActivity(new Intent(ViewActivity.this, BookingsActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
