@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CleanerAdapter extends ArrayAdapter<Cleaner> {
 
-    private TextView tvName, tvAge, tvGender, tvContact, tvLanguage;
+    private TextView tvName, tvAge, tvGender, tvContact, tvRate, tvExperience;
     private Context parent_context;
     private ArrayList<Cleaner> cleanerList;
 
@@ -30,14 +30,16 @@ public class CleanerAdapter extends ArrayAdapter<Cleaner> {
        tvAge = rowView.findViewById(R.id.tvAge);
        tvGender = rowView.findViewById(R.id.tvGender);
        tvContact = rowView.findViewById(R.id.tvContact);
-       tvLanguage = rowView.findViewById(R.id.tvLanguage);
+       tvRate = rowView.findViewById(R.id.tvRate);
+       tvExperience = rowView.findViewById(R.id.tvExperience);
 
        Cleaner currentCleaner = cleanerList.get(position);
        tvName.setText(currentCleaner.getName());
        tvAge.setText(currentCleaner.getAge());
        tvGender.setText(currentCleaner.getGender());
        tvContact.setText(currentCleaner.getContact());
-       tvLanguage.setText(currentCleaner.getLanguage());
+       tvRate.setText(currentCleaner.getRate());
+       tvExperience.setText(currentCleaner.getExperience());
 
        return rowView;
    }

@@ -6,14 +6,17 @@ public class Cleaner {
     private String age;
     private String gender;
     private String contact;
-    private String language;
+    private String rate;
+    private String experience;
 
-    public Cleaner(String name, String age, String gender, String contact, String language) {
+    public Cleaner(String name, String age, String gender, String contact, String rate, String experience) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.contact = contact;
-        this.language = language;
+        this.rate = rate;
+        this.experience = experience;
+
     }
 
     public String getName() {
@@ -48,11 +51,19 @@ public class Cleaner {
         this.contact = contact;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getRate() {
+        return rate;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 }

@@ -43,8 +43,9 @@ public class CleanerInformation extends AppCompatActivity {
                                 String age = (String) document.getData().get("Age");
                                 String gender = (String) document.getData().get("Gender");
                                 String contact = (String) document.getData().get("Contact");
-                                String language = (String) document.getData().get("Language");
-                                Cleaner cleaner = new Cleaner(name, age, gender, contact, language);
+                                String rate = (String) document.getData().get("RatePerHour");
+                                String experience = (String) document.getData().get("Experience");
+                                Cleaner cleaner = new Cleaner(name, age, gender, contact, rate, experience);
                                 alCleaner.add(cleaner);
                             }
                         }
