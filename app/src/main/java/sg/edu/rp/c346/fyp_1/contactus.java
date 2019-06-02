@@ -88,6 +88,9 @@ DocumentReference docRef = db.collection("Company").document("p4C5WYZfyCbGkXHsLd
             case R.id.view_bookings:
                 startActivity(new Intent(contactus.this, BookingsActivity.class));
                 return true;
+            case R.id.view_cleaner:
+                startActivity(new Intent(contactus.this, CleanerInformation.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

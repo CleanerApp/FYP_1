@@ -70,6 +70,9 @@ public class ViewActivity extends AppCompatActivity {
             case R.id.view_bookings:
                 startActivity(new Intent(ViewActivity.this, BookingsActivity.class));
                 return true;
+            case R.id.view_cleaner:
+                startActivity(new Intent(ViewActivity.this, CleanerInformation.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

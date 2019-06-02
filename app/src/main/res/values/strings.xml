@@ -31,6 +31,7 @@
     <string name="company">Greentac Pte Ltd </string>
     <string name="view">View Services</string>
     <string name="bookings">View Bookings</string>
+    <string name="cleaner">View Cleaner</string>
 
     <string-array name="services">
         <item>Select A Service</item>

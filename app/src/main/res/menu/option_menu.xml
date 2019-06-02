@@ -20,4 +20,8 @@
         <item
             android:id="@+id/view_bookings"
             android:title="@string/bookings" />
+
+        <item
+            android:id="@+id/view_cleaner"
+            android:title="@string/cleaner" />
 </menu>

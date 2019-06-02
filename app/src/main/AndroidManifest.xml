@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".EditBookings"></activity>
+        <activity
+            android:name=".CleanerInformation"
+            android:label="View Cleaner" />
+        <activity android:name=".EditBookings" />
         <activity
             android:name=".BookingsActivity"
             android:label="View Bookings" />
@@ -45,6 +48,7 @@
             android:label="Paying" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UpdatePassword" />
+
     </application>
 
 </manifest>
