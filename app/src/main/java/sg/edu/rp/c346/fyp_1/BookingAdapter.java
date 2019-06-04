@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class BookingAdapter extends ArrayAdapter<Bookings> {
-    private TextView tvS, tvD, tvT, tvST, tvPC, tvC, tvE;
+    private TextView tvS, tvD, tvT, tvST, tvPC, tvC, tvE, tvCleaner;
     private Context parent_context;
     private ArrayList<Bookings> bookingsList;
 
@@ -32,6 +32,7 @@ public class BookingAdapter extends ArrayAdapter<Bookings> {
         tvPC = rowView.findViewById(R.id.textViewPC);
         tvC = rowView.findViewById(R.id.textViewC);
         tvE = rowView.findViewById(R.id.textViewE);
+        tvCleaner = rowView.findViewById(R.id.textViewCleaner);
 
         Bookings currentBooking = bookingsList.get(position);
         tvS.setText(currentBooking.getService());
@@ -41,6 +42,7 @@ public class BookingAdapter extends ArrayAdapter<Bookings> {
         tvPC.setText(currentBooking.getPostal());
         tvC.setText(currentBooking.getContact());
         tvE.setText(currentBooking.getEmail());
+        tvCleaner.setText(currentBooking.getCleaner());
 
         return rowView;
     }

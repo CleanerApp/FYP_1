@@ -48,7 +48,8 @@ public class BookingsActivity extends AppCompatActivity {
                                 String notes = (String) document.getData().get("Notes");
                                 String contact = (String) document.getData().get("Contact");
                                 String email = (String) document.getData().get("Email");
-                                Bookings bb = new Bookings(service, date, time, street, postal_code, notes, contact, email);
+                                String cleaner = (String) document.getData().get("Name");
+                                Bookings bb = new Bookings(service, date, time, street, postal_code, notes, contact, email, cleaner);
                                 alBookings.add(bb);
                             }
                         }

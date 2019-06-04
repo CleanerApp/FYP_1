@@ -11,8 +11,9 @@ public class Bookings implements Serializable {
     private String notes;
     private String contact;
     private String email;
+    private String cleaner;
 
-    public Bookings(String service, String date, String time, String street, String postal, String notes, String contact, String email) {
+    public Bookings(String service, String date, String time, String street, String postal, String notes, String contact, String email, String cleaner) {
         this.service = service;
         this.date = date;
         this.time = time;
@@ -21,6 +22,7 @@ public class Bookings implements Serializable {
         this.notes = notes;
         this.contact = contact;
         this.email = email;
+        this.cleaner = cleaner;
     }
 
     public String getService() {
@@ -85,5 +87,13 @@ public class Bookings implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCleaner() {
+        return cleaner;
+    }
+
+    public void setCleaner(String cleaner) {
+        this.cleaner = cleaner;
     }
 }
