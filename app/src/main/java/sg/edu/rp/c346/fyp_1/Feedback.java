@@ -49,6 +49,8 @@ public class Feedback extends AppCompatActivity {
 
                 Intent i = new Intent(Feedback.this, Summary.class);
 
+                Toast.makeText(Feedback.this, "Submitted Successfully", Toast.LENGTH_LONG).show();
+
                 i.putExtra("info", info);
 
                 startActivity(i);
