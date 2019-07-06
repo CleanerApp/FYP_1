@@ -191,6 +191,12 @@ public class Home extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(Home.this, CleanerInformation.class));
                 return true;
+            case R.id.view_profile:
+                startActivity(new Intent(Home.this, ProfileActivity.class));
+                return true;
+            case R.id.view_feedback:
+                startActivity(new Intent(Home.this, Feedback.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

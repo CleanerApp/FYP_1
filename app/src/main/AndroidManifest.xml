@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Summary"></activity>
+        <activity android:name=".Feedback" />
         <activity
             android:name=".CleanerInformation"
             android:label="View Cleaner" />
@@ -48,7 +50,6 @@
             android:label="Paying" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UpdatePassword" />
-
     </application>
 
 </manifest>

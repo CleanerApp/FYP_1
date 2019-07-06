@@ -91,6 +91,12 @@ DocumentReference docRef = db.collection("Company").document("p4C5WYZfyCbGkXHsLd
             case R.id.view_cleaner:
                 startActivity(new Intent(contactus.this, CleanerInformation.class));
                 return true;
+            case R.id.view_profile:
+                startActivity(new Intent(contactus.this, ProfileActivity.class));
+                return true;
+            case R.id.view_feedback:
+                startActivity(new Intent(contactus.this, Feedback.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -13,14 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import sg.edu.rp.c346.fyp_1.Model.User;
 import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -29,7 +34,9 @@ public class ProfileActivity extends AppCompatActivity {
     Button logout, changePassword;
 
     FirebaseDatabase firebaseDatabase;
+    FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
+    String name, email, password, securecode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +53,59 @@ public class ProfileActivity extends AppCompatActivity {
         changePassword = findViewById(R.id.btnChangePassword);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        //db = FirebaseFirestore.getInstance();
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        final String user_email = profileEmail.getText().toString().trim();
+        final String user_name = profileName.getText().toString().trim();
+        final String user_code = profileCode.getText().toString().trim();
+        final UserProfile userProfile = new UserProfile(email, name, password, securecode);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-                profileName.setText("Name: " + userProfile.getUserName());
-                profileEmail.setText("Email: " + userProfile.getUserEmail());
-                profileCode.setText("Secure Code: " + userProfile.getUserSecureCode());
-            }
+//        DocumentReference docRef = db.collection("users").document(user_email);
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()){
+//                        profileName.setText("Name:" + userProfile.getUserName());
+//                    }
+//                }
+//            }
+//        });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ProfileActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+//        docRef.collection("users").document(user_email).set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//
+//                profileName.setText("Name: " + userProfile.getUserName());
+//                profileEmail.setText("Email: " + userProfile.getUserEmail());
+//                profileCode.setText("Secure Code: " + userProfile.getUserSecureCode());
+//
+//            }
+//        });
 
-            }
-        });
+
+
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+//
+//
+//        DatabaseReference databaseReference = firebaseDatabase.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+//                profileName.setText("Name: " + userProfile.getUserName());
+//                profileEmail.setText("Email: " + userProfile.getUserEmail());
+//                profileCode.setText("Secure Code: " + userProfile.getUserSecureCode());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(ProfileActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +117,12 @@ public class ProfileActivity extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(ProfileActivity.this, UpdatePassword.class));
+                startActivity(new Intent(ProfileActivity.this, UpdatePassword.class));
             }
         });
     }
 
-    private void Logout(){
+    private void Logout() {
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(ProfileActivity.this, MainActivity.class));

@@ -33,7 +33,7 @@ import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 public class UpdatePassword extends AppCompatActivity {
 
     Button update;
-    EditText etPassword, etNewPassword, etRepeatPassword;
+    EditText etPassword, etNewPassword, etRepeatPassword, etEmail;
 
     FirebaseAuth firebaseAuth;
     DocumentReference docRef;
@@ -48,18 +48,20 @@ public class UpdatePassword extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etNewPassword = findViewById(R.id.etNewPassword);
         etRepeatPassword = findViewById(R.id.etRepeatPassword);
+        etEmail = findViewById(R.id.etEmail);
 
         //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String user_email = etEmail.getText().toString().trim();
                 final String password = etPassword.getText().toString().trim();
                 final String newpassword = etNewPassword.getText().toString().trim();
                 final String repassword = etRepeatPassword.getText().toString().trim();
 
                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
-                final DocumentReference docRef = db.collection("users").document("");
+                final DocumentReference docRef = db.collection("users").document(user_email);
 
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -73,6 +75,7 @@ public class UpdatePassword extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(UpdatePassword.this, "Password updated", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(UpdatePassword.this, ProfileActivity.class));
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override

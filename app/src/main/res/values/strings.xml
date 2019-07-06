@@ -32,6 +32,17 @@
     <string name="view">View Services</string>
     <string name="bookings">View Bookings</string>
     <string name="cleaner">View Cleaner</string>
+    <string name="provide">Please provide your feedback here:</string>
+    <string name="rate">How would you rate our app:</string>
+    <string name="checkbox">This feedback is about:</string>
+    <string name="suggestion">Suggestion</string>
+    <string name="complaint">Complaint</string>
+    <string name="poor">Poor</string>
+    <string name="fair">Fair</string>
+    <string name="good">Good</string>
+    <string name="excellent">Excellent</string>
+    <string name="feedback">We Care. Please Share.</string>
+    <string name="enquiries">Feedback</string>
 
     <string-array name="services">
         <item>Select A Service</item>

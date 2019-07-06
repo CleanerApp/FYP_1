@@ -73,6 +73,12 @@ public class ViewActivity extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(ViewActivity.this, CleanerInformation.class));
                 return true;
+            case R.id.view_profile:
+                startActivity(new Intent(ViewActivity.this, ProfileActivity.class));
+                return true;
+            case R.id.view_feedback:
+                startActivity(new Intent(ViewActivity.this, Feedback.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
