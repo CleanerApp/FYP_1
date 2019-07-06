@@ -14,7 +14,6 @@ import android.widget.Toast;
 public class Feedback extends AppCompatActivity {
 
     RadioGroup rg1, rg2;
-    RadioButton cbSuggestion, cbComplaint, cbPoor, cbFair, cbGood, cbExcellent;
     CheckBox cbContact, cbFollow;
     EditText etName, etPhoneNo, etEmail, etFeedback;
     Button btnSubmit;
@@ -24,12 +23,6 @@ public class Feedback extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        cbSuggestion = findViewById(R.id.cbSuggestion);
-        cbComplaint = findViewById(R.id.cbComplaint);
-        cbPoor = findViewById(R.id.cbPoor);
-        cbFair = findViewById(R.id.cbFair);
-        cbGood = findViewById(R.id.cbGood);
-        cbExcellent = findViewById(R.id.cbExcellent);
         cbContact = findViewById(R.id.cbContact);
         cbFollow = findViewById(R.id.cbFollow);
 
