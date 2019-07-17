@@ -22,10 +22,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import javax.annotation.Nullable;
+
+import sg.edu.rp.c346.fyp_1.Common.Common;
 import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -34,6 +40,8 @@ public class ProfileActivity extends AppCompatActivity {
     Button logout, changePassword;
 
     FirebaseDatabase firebaseDatabase;
+    CollectionReference colRef;
+    DocumentReference docRef;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
     String name, email, password, securecode;
@@ -52,26 +60,38 @@ public class ProfileActivity extends AppCompatActivity {
         logout = findViewById(R.id.btnLogout);
         changePassword = findViewById(R.id.btnChangePassword);
 
+
         firebaseAuth = FirebaseAuth.getInstance();
-        //db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        final String user_email = profileEmail.getText().toString().trim();
-        final String user_name = profileName.getText().toString().trim();
-        final String user_code = profileCode.getText().toString().trim();
-        final UserProfile userProfile = new UserProfile(email, name, password, securecode);
+        //final String user_email = profileEmail.getText().toString();
 
-//        DocumentReference docRef = db.collection("users").document(user_email);
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()){
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()){
-//                        profileName.setText("Name:" + userProfile.getUserName());
-//                    }
-//                }
-//            }
-//        });
+        Intent i  = getIntent();
+        email = i.getStringExtra("email");
+
+        colRef = db.collection("users");
+        docRef = colRef.document(email);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null){
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()){
+                    String name = (String) snapshot.get("userName");
+                    String email = (String) snapshot.get("userEmail");
+                    String securecode = (String) snapshot.get("userSecureCode");
+
+                    profileName.setText(name);
+                    profileEmail.setText(email);
+                    profileCode.setText(securecode);
+                }
+            }
+        });
+
+
+
 
 //        docRef.collection("users").document(user_email).set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
 //            @Override
@@ -84,12 +104,11 @@ public class ProfileActivity extends AppCompatActivity {
 //            }
 //        });
 
-
-
+//
+//
 //        firebaseDatabase = FirebaseDatabase.getInstance();
 //
-//
-//        DatabaseReference databaseReference = firebaseDatabase.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
 //
 //        databaseReference.addValueEventListener(new ValueEventListener() {
 //            @Override
