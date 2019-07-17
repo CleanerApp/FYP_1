@@ -37,7 +37,7 @@ public class Summary extends AppCompatActivity {
         tvName.setText("Name: " + info[2]);
         tvPhoneNo.setText("Phone Number: " + info[3]);
         tvEmail.setText("Email: " + info[4]);
-        tvFeedback.setText(Provide + " " + info[5]);
+        tvFeedback.setText(Provide + " " + "\n" + info[5]);
 
 
         btnHome = findViewById(R.id.btnHome);
