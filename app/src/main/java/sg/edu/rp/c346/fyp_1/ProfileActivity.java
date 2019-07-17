@@ -83,9 +83,9 @@ public class ProfileActivity extends AppCompatActivity {
                     String email = (String) snapshot.get("userEmail");
                     String securecode = (String) snapshot.get("userSecureCode");
 
-                    profileName.setText(name);
-                    profileEmail.setText(email);
-                    profileCode.setText(securecode);
+                    profileName.setText("Name: " + name);
+                    profileEmail.setText("Email: " + email);
+                    profileCode.setText("Secure Code: " + securecode);
                 }
             }
         });
@@ -145,6 +145,41 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.option_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                startActivity(new Intent(ProfileActivity.this, Home.class));
+                return true;
+            case R.id.sign_in:
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                return true;
+            case R.id.contact_us:
+                startActivity(new Intent(ProfileActivity.this, contactus.class));
+                return true;
+            case R.id.view_service:
+                startActivity(new Intent(ProfileActivity.this, ViewActivity.class));
+                return true;
+            case R.id.view_bookings:
+                startActivity(new Intent(ProfileActivity.this, BookingsActivity.class));
+                return true;
+            case R.id.view_cleaner:
+                startActivity(new Intent(ProfileActivity.this, CleanerInformation.class));
+                return true;
+            case R.id.view_feedback:
+                startActivity(new Intent(ProfileActivity.this, Feedback.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
