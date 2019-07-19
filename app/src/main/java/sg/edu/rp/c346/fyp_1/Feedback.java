@@ -85,12 +85,15 @@ public class Feedback extends AppCompatActivity {
                             cbContact.setChecked(false);
                             cbFollow.setChecked(false);
                             etName.setText("");
+                            etPhoneNo.setText("");
+                            etEmail.setText("");
+                            etFeedback.setText("");
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Feedback.this, "Submitted Failed", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(Feedback.this, "Submitted Failed", Toast.LENGTH_LONG).show();
                         }
                     });
 
