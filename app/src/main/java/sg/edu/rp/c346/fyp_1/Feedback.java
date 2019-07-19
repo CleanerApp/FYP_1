@@ -97,17 +97,6 @@ public class Feedback extends AppCompatActivity {
 
 
 
-//
-//                String[] info = {rb1.getText().toString(), rb2.getText().toString(), etName.getText().toString(), etPhoneNo.getText().toString(), etEmail.getText().toString(), etFeedback.getText().toString()};
-//
-//                Intent i = new Intent(Feedback.this, Summary.class);
-//
-//                Toast.makeText(Feedback.this, "Submitted Successfully", Toast.LENGTH_LONG).show();
-//
-//                i.putExtra("info", info);
-//
-//                startActivity(i);
-
             }
         });
 
