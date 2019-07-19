@@ -34,6 +34,8 @@ public class BookingsActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         alBookings = new ArrayList<>();
 
+        aaBookings = new BookingAdapter(BookingsActivity.this, R.layout.row_bookings, alBookings);
+        lvBookings.setAdapter(aaBookings);
         updateTable();
 
         lvBookings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,6 +66,7 @@ public class BookingsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            alBookings.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String service = (String) document.getData().get("Service");
                                 String date = (String) document.getData().get("Date");
@@ -77,9 +80,9 @@ public class BookingsActivity extends AppCompatActivity {
                                 Bookings bb = new Bookings(service, date, time, street, postal_code, notes, contact, email, cleaner);
                                 alBookings.add(bb);
                             }
+                            aaBookings.notifyDataSetChanged();
                         }
-                        aaBookings = new BookingAdapter(BookingsActivity.this, R.layout.row_bookings, alBookings);
-                        lvBookings.setAdapter(aaBookings);
+
                     }
                 });
     }
