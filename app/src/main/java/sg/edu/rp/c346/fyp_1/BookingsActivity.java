@@ -1,9 +1,9 @@
 package sg.edu.rp.c346.fyp_1;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,12 +34,40 @@ public class BookingsActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         alBookings = new ArrayList<>();
 
+        aaBookings = new BookingAdapter(BookingsActivity.this, R.layout.row_bookings, alBookings);
+        lvBookings.setAdapter(aaBookings);
+        updateTable();
+
+        lvBookings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bookings b = alBookings.get(position);
+                Intent i = new Intent(BookingsActivity.this, EditBookings.class);
+                i.putExtra("booking", b);
+                startActivityForResult(i, 9);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            updateTable();
+        }
+    }
+
+    private void updateTable() {
         db.collection("Booking").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
+                        if (task.isSuccessful()) {
+                            alBookings.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
                                 String service = (String) document.getData().get("Service");
                                 String date = (String) document.getData().get("Date");
                                 String time = (String) document.getData().get("Time");
@@ -52,22 +80,11 @@ public class BookingsActivity extends AppCompatActivity {
                                 Bookings bb = new Bookings(service, date, time, street, postal_code, notes, contact, email, cleaner);
                                 alBookings.add(bb);
                             }
+                            aaBookings.notifyDataSetChanged();
                         }
-                        aaBookings = new BookingAdapter(BookingsActivity.this, R.layout.row_bookings, alBookings);
-                        lvBookings.setAdapter(aaBookings);
+
                     }
                 });
-
-        lvBookings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bookings b = alBookings.get(position);
-                Intent i = new Intent(BookingsActivity.this, EditBookings.class);
-                i.putExtra("booking", b);
-                startActivity(i);
-            }
-        });
-
     }
 
     @Override
@@ -89,16 +106,13 @@ public class BookingsActivity extends AppCompatActivity {
                 startActivity(new Intent(BookingsActivity.this, contactus.class));
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(BookingsActivity.this, ViewActivity.class));
+                startActivity(new Intent(BookingsActivity.this, ServiceList.class));
                 return true;
             case R.id.view_bookings:
                 startActivity(new Intent(BookingsActivity.this, BookingsActivity.class));
                 return true;
             case R.id.view_cleaner:
                 startActivity(new Intent(BookingsActivity.this, CleanerInformation.class));
-                return true;
-            case R.id.view_feedback:
-                startActivity(new Intent(BookingsActivity.this, Feedback.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
