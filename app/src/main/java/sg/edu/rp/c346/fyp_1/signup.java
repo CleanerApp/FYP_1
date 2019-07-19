@@ -236,33 +236,6 @@ public class signup extends AppCompatActivity {
                 });
     }
 
-    public void computerMD5Hash(String password){
-        try{
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            digest.update(password.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            StringBuffer MD5Hash = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++){
-                String h = Integer.toHexString(0xFF & messageDigest[i]);
-                while (h.length() < 2){
-                    h = "0" + h;
-                    MD5Hash.append(h);
-
-                }
-
-
-                userPassword.setText(MD5Hash);
-
-            }
-
-
-
-        } catch (NoSuchAlgorithmException e){
-            e.printStackTrace();
-        }
-
-    }
 
 
 }
