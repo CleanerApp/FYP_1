@@ -1,9 +1,9 @@
 package sg.edu.rp.c346.fyp_1;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -76,19 +76,13 @@ public class CleanerInformation extends AppCompatActivity {
                 startActivity(new Intent(CleanerInformation.this, contactus.class));
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(CleanerInformation.this, ViewActivity.class));
+                startActivity(new Intent(CleanerInformation.this, ServiceList.class));
                 return true;
             case R.id.view_bookings:
                 startActivity(new Intent(CleanerInformation.this, BookingsActivity.class));
                 return true;
             case R.id.view_cleaner:
                 startActivity(new Intent(CleanerInformation.this, CleanerInformation.class));
-                return true;
-            case R.id.view_profile:
-                startActivity(new Intent(CleanerInformation.this, ProfileActivity.class));
-                return true;
-            case R.id.view_feedback:
-                startActivity(new Intent(CleanerInformation.this, Feedback.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

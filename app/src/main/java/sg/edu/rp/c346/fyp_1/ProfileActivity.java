@@ -166,7 +166,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, contactus.class));
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(ProfileActivity.this, ViewActivity.class));
+                startActivity(new Intent(ProfileActivity.this, ServiceList.class));
                 return true;
             case R.id.view_bookings:
                 startActivity(new Intent(ProfileActivity.this, BookingsActivity.class));

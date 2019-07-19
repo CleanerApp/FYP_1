@@ -1,9 +1,9 @@
 package sg.edu.rp.c346.fyp_1;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,10 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,6 +62,7 @@ public class Pay extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(Pay.this, "Booking Recorded", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -71,7 +70,6 @@ public class Pay extends AppCompatActivity {
                         Toast.makeText(Pay.this, "Booking Failure to Record", Toast.LENGTH_SHORT).show();
                     }
                 });
-                finish();
             }
         });
 
