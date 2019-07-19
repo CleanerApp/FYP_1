@@ -64,6 +64,7 @@ public class Feedback extends AppCompatActivity {
                 String radio1 = rb1.getText().toString();
                 String radio2 = rb2.getText().toString();
                 feedback.put("About", radio1);
+                //feedback.put("")
 
 
                 db.collection("Feedback").add(feedback).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {

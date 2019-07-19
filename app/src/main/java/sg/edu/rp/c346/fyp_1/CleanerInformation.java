@@ -84,6 +84,9 @@ public class CleanerInformation extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(CleanerInformation.this, CleanerInformation.class));
                 return true;
+            case R.id.view_feedback:
+                startActivity(new Intent(CleanerInformation.this, Feedback.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

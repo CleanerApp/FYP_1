@@ -114,6 +114,9 @@ public class BookingsActivity extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(BookingsActivity.this, CleanerInformation.class));
                 return true;
+            case R.id.view_feedback:
+                startActivity(new Intent(BookingsActivity.this, Feedback.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
