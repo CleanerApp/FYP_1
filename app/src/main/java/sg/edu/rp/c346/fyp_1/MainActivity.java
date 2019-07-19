@@ -184,10 +184,10 @@ public class MainActivity extends AppCompatActivity {
                         if (userEmail.equals(document.getString("userEmail"))){
                             if (userPassword.equals(document.getString("userPassword"))){
                                 progressDialog.dismiss();
-                                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                                intent.putExtra("email", edtUser.getText().toString());
-                                startActivity(intent);
-                                //startActivity(new Intent(MainActivity.this, Home.class));
+//                                Intent intent = new Intent(MainActivity.this, Home.class);
+//                                intent.putExtra("email", edtUser.getText().toString());
+//                                startActivity(intent);
+                                startActivity(new Intent(MainActivity.this, Home.class));
                                 //checkEmailVerification();
                             } else{
                                 progressDialog.dismiss();

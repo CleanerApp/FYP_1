@@ -50,11 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        profilePic = findViewById(R.id.imageViewProfilePic);
-        profileName = findViewById(R.id.tvProfileName);
-        profileEmail = findViewById(R.id.tvProfileEmail);
-        profileCode = findViewById(R.id.tvSecureCode);
+//
+//        profilePic = findViewById(R.id.imageViewProfilePic);
+//        profileName = findViewById(R.id.tvProfileName);
+//        profileEmail = findViewById(R.id.tvProfileEmail);
+//        profileCode = findViewById(R.id.tvSecureCode);
 
 
         logout = findViewById(R.id.btnLogout);
@@ -66,29 +66,29 @@ public class ProfileActivity extends AppCompatActivity {
 
         //final String user_email = profileEmail.getText().toString();
 
-        Intent i  = getIntent();
-        email = i.getStringExtra("email");
-
-        colRef = db.collection("users");
-        docRef = colRef.document(email);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null){
-                    return;
-                }
-
-                if (snapshot != null && snapshot.exists()){
-                    String name = (String) snapshot.get("userName");
-                    String email = (String) snapshot.get("userEmail");
-                    String securecode = (String) snapshot.get("userSecureCode");
-
-                    profileName.setText("Name: " + name);
-                    profileEmail.setText("Email: " + email);
-                    profileCode.setText("Secure Code: " + securecode);
-                }
-            }
-        });
+//        Intent i  = getIntent();
+//        email = i.getStringExtra("email");
+//
+//        colRef = db.collection("users");
+//        docRef = colRef.document(email);
+//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+//                if (e != null){
+//                    return;
+//                }
+//
+//                if (snapshot != null && snapshot.exists()){
+//                    String name = (String) snapshot.get("userName");
+//                    String email = (String) snapshot.get("userEmail");
+//                    String securecode = (String) snapshot.get("userSecureCode");
+//
+//                    profileName.setText("Name: " + name);
+//                    profileEmail.setText("Email: " + email);
+//                    profileCode.setText("Secure Code: " + securecode);
+//                }
+//            }
+//        });
 
 
 
