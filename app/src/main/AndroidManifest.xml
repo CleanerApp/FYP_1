@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Feedback" />
+
+        <activity android:name=".Feedback"
+            android:label="Feedback"/>
         <activity
             android:name=".CleanerInformation"
             android:label="View Cleaner" />
@@ -38,8 +40,11 @@
         <activity
             android:name=".contactus"
             android:label="@string/contact_us" />
+
         <activity android:name=".login" />
+
         <activity android:name=".forgotpass" />
+
         <activity
             android:name=".signup"
             android:label="Sign up" />
@@ -47,8 +52,13 @@
         <activity
             android:name=".Pay"
             android:label="Paying" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".UpdatePassword" />
+
+        <activity android:name=".ProfileActivity"
+            android:label="Profile"/>
+
+        <activity android:name=".UpdatePassword"
+            android:label="Change Password"/>
+
     </application>
 
 </manifest>

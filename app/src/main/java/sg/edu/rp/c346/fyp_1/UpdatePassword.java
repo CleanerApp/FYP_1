@@ -74,7 +74,7 @@ public class UpdatePassword extends AppCompatActivity {
                                         docRef.update("userPassword", newpassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(UpdatePassword.this, "Password updated", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(UpdatePassword.this, "Password changed", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(UpdatePassword.this, ProfileActivity.class));
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
