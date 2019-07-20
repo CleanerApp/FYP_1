@@ -30,6 +30,7 @@ public class Pay extends AppCompatActivity {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Intent i = getIntent();
+        String service = i.getStringExtra("Service");
         String date = i.getStringExtra("Date");
         String time = i.getStringExtra("Time");
         String street = i.getStringExtra("Street");
@@ -44,7 +45,7 @@ public class Pay extends AppCompatActivity {
         } else{
             booking.put("Notes", null);
         }
-        booking.put("Service", "Clean - Room");
+        booking.put("Service", service);
         booking.put("Date", date);
         booking.put("Time", time);
         booking.put("Street", street);

@@ -4,11 +4,13 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,14 +19,23 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Home extends AppCompatActivity {
     TextView tvError;
     Spinner spn;
+    List<String> serve;
     EditText etDate, etTime, etStreet, etPostal, etNote, etContact, etEmail;
     Button btnProceed;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
     Calendar calendar;
@@ -56,11 +67,31 @@ public class Home extends AppCompatActivity {
         Email = false;
         btnProceed = findViewById(R.id.button);
 
+        serve = new ArrayList<String>();
+        serve.add("Select a Service");
+
+        db.collection("Service").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot document:task.getResult()){
+                        String name = (String) document.getData().get("Name");
+                        serve.add(name);
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(Home.this, android.R.layout.simple_spinner_item, serve);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spn.setAdapter(adapter);
+                }
+            }
+        });
+
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spn.getSelectedItem().toString().equalsIgnoreCase("Select a Service")){
+                String selected = spn.getSelectedItem().toString();
+                if (selected.equalsIgnoreCase("Select a Service")){
                     tvError.setError("Select a Service");
+                    Toast.makeText(Home.this, "Select a Service", Toast.LENGTH_SHORT).show();
                 } else{
                     Service = true;
                 }
@@ -98,8 +129,9 @@ public class Home extends AppCompatActivity {
                 } else{
                     Email = true;
                 }
-                if (Date == true && Time == true && Street == true && Postal == true && Contact == true && Email == true) {
+                if (Service == true && Date == true && Time == true && Street == true && Postal == true && Contact == true && Email == true) {
                     Intent intent = new Intent(Home.this, Pay.class);
+                    intent.putExtra("Service", spn.getSelectedItem().toString());
                     intent.putExtra("Date", etDate.getText().toString());
                     intent.putExtra("Time", etTime.getText().toString());
                     intent.putExtra("Street", etStreet.getText().toString());
@@ -196,9 +228,6 @@ public class Home extends AppCompatActivity {
                 return true;
             case R.id.view_feedback:
                 startActivity(new Intent(Home.this, Feedback.class));
-                return true;
-            case R.id.view_profile:
-                startActivity(new Intent(Home.this, ProfileActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

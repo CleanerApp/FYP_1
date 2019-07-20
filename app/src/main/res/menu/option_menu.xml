@@ -26,12 +26,7 @@
             android:title="@string/cleaner" />
 
         <item
-            android:id="@+id/view_profile"
-            android:title="@string/profile" />
-
-        <item
             android:id="@+id/view_feedback"
             android:title="@string/enquiries" />
-
-
+        
 </menu>

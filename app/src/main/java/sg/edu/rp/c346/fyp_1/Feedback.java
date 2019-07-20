@@ -190,9 +190,6 @@ public class Feedback extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(Feedback.this, CleanerInformation.class));
                 return true;
-            case R.id.view_profile:
-                startActivity(new Intent(Feedback.this, ProfileActivity.class));
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
