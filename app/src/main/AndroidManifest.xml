@@ -18,7 +18,7 @@
             android:name=".CleanerInformation"
             android:label="View Cleaner" />
         <activity android:name=".EditBookings"
-            android:label="Edit Bookings"/>
+            android:label="Edit Your Booking"/>
         <activity
             android:name=".BookingsActivity"
             android:label="View Bookings" />
