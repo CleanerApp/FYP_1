@@ -35,151 +35,151 @@ import sg.edu.rp.c346.fyp_1.Common.Common;
 import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 public class ProfileActivity extends AppCompatActivity {
-    ImageView profilePic;
-    TextView profileName, profileEmail, profileCode;
-    Button logout, changePassword;
-
-    FirebaseDatabase firebaseDatabase;
-    CollectionReference colRef;
-    DocumentReference docRef;
-    FirebaseFirestore db;
-    FirebaseAuth firebaseAuth;
-    String name, email, password, securecode;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+//    ImageView profilePic;
+//    TextView profileName, profileEmail, profileCode;
+//    Button logout, changePassword;
 //
-//        profilePic = findViewById(R.id.imageViewProfilePic);
-//        profileName = findViewById(R.id.tvProfileName);
-//        profileEmail = findViewById(R.id.tvProfileEmail);
-//        profileCode = findViewById(R.id.tvSecureCode);
-
-
-        logout = findViewById(R.id.btnLogout);
-        changePassword = findViewById(R.id.btnChangePassword);
-
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-
-        //final String user_email = profileEmail.getText().toString();
-
-//        Intent i  = getIntent();
-//        email = i.getStringExtra("email");
+//    FirebaseDatabase firebaseDatabase;
+//    CollectionReference colRef;
+//    DocumentReference docRef;
+//    FirebaseFirestore db;
+//    FirebaseAuth firebaseAuth;
+//    String name, email, password, securecode;
 //
-//        colRef = db.collection("users");
-//        docRef = colRef.document(email);
-//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_profile);
+////
+////        profilePic = findViewById(R.id.imageViewProfilePic);
+////        profileName = findViewById(R.id.tvProfileName);
+////        profileEmail = findViewById(R.id.tvProfileEmail);
+////        profileCode = findViewById(R.id.tvSecureCode);
+//
+//
+//        logout = findViewById(R.id.btnLogout);
+//        changePassword = findViewById(R.id.btnChangePassword);
+//
+//
+//        firebaseAuth = FirebaseAuth.getInstance();
+//        db = FirebaseFirestore.getInstance();
+//
+//        //final String user_email = profileEmail.getText().toString();
+//
+////        Intent i  = getIntent();
+////        email = i.getStringExtra("email");
+////
+////        colRef = db.collection("users");
+////        docRef = colRef.document(email);
+////        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+////            @Override
+////            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+////                if (e != null){
+////                    return;
+////                }
+////
+////                if (snapshot != null && snapshot.exists()){
+////                    String name = (String) snapshot.get("userName");
+////                    String email = (String) snapshot.get("userEmail");
+////                    String securecode = (String) snapshot.get("userSecureCode");
+////
+////                    profileName.setText("Name: " + name);
+////                    profileEmail.setText("Email: " + email);
+////                    profileCode.setText("Secure Code: " + securecode);
+////                }
+////            }
+////        });
+//
+//
+//
+//
+////        docRef.collection("users").document(user_email).set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+////            @Override
+////            public void onSuccess(Void aVoid) {
+////
+////                profileName.setText("Name: " + userProfile.getUserName());
+////                profileEmail.setText("Email: " + userProfile.getUserEmail());
+////                profileCode.setText("Secure Code: " + userProfile.getUserSecureCode());
+////
+////            }
+////        });
+//
+////
+////
+////        firebaseDatabase = FirebaseDatabase.getInstance();
+////
+////        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
+////
+////        databaseReference.addValueEventListener(new ValueEventListener() {
+////            @Override
+////            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+////                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+////                profileName.setText("Name: " + userProfile.getUserName());
+////                profileEmail.setText("Email: " + userProfile.getUserEmail());
+////                profileCode.setText("Secure Code: " + userProfile.getUserSecureCode());
+////            }
+////
+////            @Override
+////            public void onCancelled(@NonNull DatabaseError databaseError) {
+////                Toast.makeText(ProfileActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+////
+////            }
+////        });
+//
+//        logout.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-//                if (e != null){
-//                    return;
-//                }
-//
-//                if (snapshot != null && snapshot.exists()){
-//                    String name = (String) snapshot.get("userName");
-//                    String email = (String) snapshot.get("userEmail");
-//                    String securecode = (String) snapshot.get("userSecureCode");
-//
-//                    profileName.setText("Name: " + name);
-//                    profileEmail.setText("Email: " + email);
-//                    profileCode.setText("Secure Code: " + securecode);
-//                }
+//            public void onClick(View view) {
+//                Logout();
 //            }
 //        });
-
-
-
-
-//        docRef.collection("users").document(user_email).set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+//
+//        changePassword.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onSuccess(Void aVoid) {
-//
-//                profileName.setText("Name: " + userProfile.getUserName());
-//                profileEmail.setText("Email: " + userProfile.getUserEmail());
-//                profileCode.setText("Secure Code: " + userProfile.getUserSecureCode());
-//
+//            public void onClick(View view) {
+//                startActivity(new Intent(ProfileActivity.this, UpdatePassword.class));
 //            }
 //        });
-
+//    }
 //
+//    private void Logout() {
+//        firebaseAuth.signOut();
+//        finish();
+//        startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+//    }
 //
-//        firebaseDatabase = FirebaseDatabase.getInstance();
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.option_menu, menu);
+//        return true;
+//    }
 //
-//        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-//                profileName.setText("Name: " + userProfile.getUserName());
-//                profileEmail.setText("Email: " + userProfile.getUserEmail());
-//                profileCode.setText("Secure Code: " + userProfile.getUserSecureCode());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Toast.makeText(ProfileActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Logout();
-            }
-        });
-
-        changePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, UpdatePassword.class));
-            }
-        });
-    }
-
-    private void Logout() {
-        firebaseAuth.signOut();
-        finish();
-        startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.option_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.home:
-                startActivity(new Intent(ProfileActivity.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-                return true;
-            case R.id.contact_us:
-                startActivity(new Intent(ProfileActivity.this, contactus.class));
-                return true;
-            case R.id.view_service:
-                startActivity(new Intent(ProfileActivity.this, ServiceList.class));
-                return true;
-            case R.id.view_bookings:
-                startActivity(new Intent(ProfileActivity.this, BookingsActivity.class));
-                return true;
-            case R.id.view_cleaner:
-                startActivity(new Intent(ProfileActivity.this, CleanerInformation.class));
-                return true;
-            case R.id.view_feedback:
-                startActivity(new Intent(ProfileActivity.this, Feedback.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.home:
+//                startActivity(new Intent(ProfileActivity.this, Home.class));
+//                return true;
+//            case R.id.sign_in:
+//                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+//                return true;
+//            case R.id.contact_us:
+//                startActivity(new Intent(ProfileActivity.this, contactus.class));
+//                return true;
+//            case R.id.view_service:
+//                startActivity(new Intent(ProfileActivity.this, ServiceList.class));
+//                return true;
+//            case R.id.view_bookings:
+//                startActivity(new Intent(ProfileActivity.this, BookingsActivity.class));
+//                return true;
+//            case R.id.view_cleaner:
+//                startActivity(new Intent(ProfileActivity.this, CleanerInformation.class));
+//                return true;
+//            case R.id.view_feedback:
+//                startActivity(new Intent(ProfileActivity.this, Feedback.class));
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
 }

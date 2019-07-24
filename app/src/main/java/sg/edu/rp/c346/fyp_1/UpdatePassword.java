@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.test.espresso.remote.EspressoRemoteMessage;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -158,5 +160,41 @@ public class UpdatePassword extends AppCompatActivity {
 //        });
 
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.option_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                startActivity(new Intent(UpdatePassword.this, Home.class));
+                return true;
+            case R.id.sign_in:
+                startActivity(new Intent(UpdatePassword.this, MainActivity.class));
+                return true;
+            case R.id.contact_us:
+                startActivity(new Intent(UpdatePassword.this, contactus.class));
+                return true;
+            case R.id.view_service:
+                startActivity(new Intent(UpdatePassword.this, ServiceList.class));
+                return true;
+            case R.id.view_bookings:
+                startActivity(new Intent(UpdatePassword.this, BookingsActivity.class));
+                return true;
+            case R.id.view_cleaner:
+                startActivity(new Intent(UpdatePassword.this, CleanerInformation.class));
+                return true;
+            case R.id.view_logout:
+                startActivity(new Intent(UpdatePassword.this, Home.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

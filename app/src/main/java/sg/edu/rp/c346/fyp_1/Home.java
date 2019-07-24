@@ -200,6 +200,9 @@ public class Home extends AppCompatActivity {
             case R.id.view_profile:
                 startActivity(new Intent(Home.this, ProfileActivity.class));
                 return true;
+            case R.id.view_password:
+                startActivity(new Intent(Home.this, UpdatePassword.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

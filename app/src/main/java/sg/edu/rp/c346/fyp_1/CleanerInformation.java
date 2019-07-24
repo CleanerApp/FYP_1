@@ -87,8 +87,11 @@ public class CleanerInformation extends AppCompatActivity {
             case R.id.view_feedback:
                 startActivity(new Intent(CleanerInformation.this, Feedback.class));
                 return true;
-            case R.id.view_profile:
-                startActivity(new Intent(CleanerInformation.this, ProfileActivity.class));
+            case R.id.view_password:
+                startActivity(new Intent(CleanerInformation.this, UpdatePassword.class));
+                return true;
+            case R.id.view_logout:
+                startActivity(new Intent(CleanerInformation.this, Home.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -94,6 +94,12 @@ public class ServiceList extends AppCompatActivity {
             case R.id.view_feedback:
                 startActivity(new Intent(ServiceList.this, Feedback.class));
                 return true;
+            case R.id.view_password:
+                startActivity(new Intent(ServiceList.this, UpdatePassword.class));
+                return true;
+            case R.id.view_logout:
+                startActivity(new Intent(ServiceList.this, Home.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

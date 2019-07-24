@@ -117,6 +117,12 @@ public class BookingsActivity extends AppCompatActivity {
             case R.id.view_feedback:
                 startActivity(new Intent(BookingsActivity.this, Feedback.class));
                 return true;
+            case R.id.view_password:
+                startActivity(new Intent(BookingsActivity.this, UpdatePassword.class));
+                return true;
+            case R.id.view_logout:
+                startActivity(new Intent(BookingsActivity.this, Home.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

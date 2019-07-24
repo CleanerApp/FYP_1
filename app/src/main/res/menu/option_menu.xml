@@ -33,5 +33,13 @@
             android:id="@+id/view_feedback"
             android:title="@string/enquiries" />
 
+        <item
+            android:id="@+id/view_password"
+            android:title="Change Password"/>
+
+        <item
+            android:id="@+id/view_logout"
+            android:title="Logout"/>
+
 
 </menu>
