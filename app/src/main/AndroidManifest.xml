@@ -17,11 +17,13 @@
         <activity
             android:name=".CleanerInformation"
             android:label="View Cleaner" />
-        <activity android:name=".EditBookings" />
+        <activity android:name=".EditBookings"
+            android:label="Edit Bookings"/>
         <activity
             android:name=".BookingsActivity"
             android:label="View Bookings" />
-        <activity android:name=".ServiceList" />
+        <activity android:name=".ServiceList"
+            android:label="@string/view_name"/>
         <activity
             android:name=".ViewActivity"
             android:label="@string/view_name" />
