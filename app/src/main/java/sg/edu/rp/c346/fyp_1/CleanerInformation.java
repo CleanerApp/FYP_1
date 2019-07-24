@@ -42,7 +42,7 @@ public class CleanerInformation extends AppCompatActivity {
                                 String name = (String) document.getData().get("Name");
                                 String age = (String) document.getData().get("Age");
                                 String gender = (String) document.getData().get("Gender");
-                                String contact = (String) document.getData().get("Contact");
+                                String contact = (String) document.getData().get("Contacts");
                                 String rate = (String) document.getData().get("RatePerHour");
                                 String experience = (String) document.getData().get("Experience");
                                 Cleaner cleaner = new Cleaner(name, age, gender, contact, rate, experience);

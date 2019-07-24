@@ -34,12 +34,12 @@ public class CleanerAdapter extends ArrayAdapter<Cleaner> {
        tvExperience = rowView.findViewById(R.id.tvExperience);
 
        Cleaner currentCleaner = cleanerList.get(position);
-       tvName.setText(currentCleaner.getName());
-       tvAge.setText(currentCleaner.getAge());
-       tvGender.setText(currentCleaner.getGender());
-       tvContact.setText(currentCleaner.getContact());
-       tvRate.setText(currentCleaner.getRate());
-       tvExperience.setText(currentCleaner.getExperience());
+       tvName.setText("Name: " + currentCleaner.getName());
+       tvAge.setText("Age: " + currentCleaner.getAge());
+       tvGender.setText("Gender: " + currentCleaner.getGender());
+       tvContact.setText("Contact: " + currentCleaner.getContact());
+       tvRate.setText("Rate Per Hour: " + currentCleaner.getRate());
+       tvExperience.setText("Experience: " + currentCleaner.getExperience());
 
        return rowView;
    }

@@ -41,9 +41,9 @@ DocumentReference docRef = db.collection("Company").document("p4C5WYZfyCbGkXHsLd
                     String name = documentSnapshot.getString("Address");
                     String contact = documentSnapshot.getString("Contact_no");
                     String email = documentSnapshot.getString("Email");
-                    a.setText(name);
-                    b.setText(contact);
-                    c.setText(email);
+                    a.setText("Company Address: " + name);
+                    b.setText("Contact: " + contact);
+                    c.setText("Email: " + email);
                 }
 
 

@@ -12,7 +12,7 @@
         android:id="@+id/textViewFeedbackTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/feedback"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"
             android:text="@string/checkbox"
             android:textStyle="bold" />
 
@@ -68,6 +69,7 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
             android:text="@string/rate"
             android:textStyle="bold" />
 
@@ -128,12 +130,15 @@
             android:id="@+id/cbContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="Can we contact you if more information is needed?" />
 
         <CheckBox
             android:id="@+id/cbFollow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Would you like us to follow up with you?" />
 
         <TextView
@@ -142,6 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
             android:text="If yes to either of these questions, please provide your contract information:" />
 
         <LinearLayout
@@ -154,6 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="Name:" />
 
             <EditText
@@ -183,6 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="Phone No:" />
 
                 <EditText
@@ -211,6 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="Email:" />
 
                     <EditText
@@ -237,6 +246,7 @@
                 android:id="@+id/textViewFeedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="@string/provide"
                 android:textStyle="bold" />
 

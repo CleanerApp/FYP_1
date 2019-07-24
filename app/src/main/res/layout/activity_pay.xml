@@ -13,6 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/price"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <LinearLayout
@@ -27,6 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="18sp"
             android:text="@string/total" />
 
         <TextView
@@ -35,6 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="15"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
             android:gravity="right"
             android:text="$36"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -51,6 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="18sp"
             android:text="@string/promo" />
 
         <EditText
@@ -59,6 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="12"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
             android:inputType="textPersonName"
             android:text="Promo Code" />
 
@@ -75,6 +88,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="18sp"
             android:text="@string/Final" />
 
         <TextView
@@ -83,6 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="15"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
             android:gravity="right"
             android:text="$36"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
