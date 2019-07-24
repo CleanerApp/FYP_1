@@ -190,10 +190,10 @@ public class Feedback extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(Feedback.this, CleanerInformation.class));
                 return true;
-            case R.id.view_password:
+            case R.id.nav_change:
                 startActivity(new Intent(Feedback.this, UpdatePassword.class));
                 return true;
-            case R.id.view_logout:
+            case R.id.logout:
                 startActivity(new Intent(Feedback.this, Home.class));
                 return true;
             default:

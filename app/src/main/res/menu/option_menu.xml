@@ -26,20 +26,15 @@
             android:title="@string/cleaner" />
 
         <item
-            android:id="@+id/view_profile"
-            android:title="@string/profile" />
-
-        <item
             android:id="@+id/view_feedback"
             android:title="@string/enquiries" />
 
         <item
-            android:id="@+id/view_password"
-            android:title="Change Password"/>
+            android:id="@+id/nav_change"
+            android:title="@string/change" />
 
         <item
-            android:id="@+id/view_logout"
-            android:title="Logout"/>
-
-
+            android:id="@+id/logout"
+            android:title="@string/logout" />
+        
 </menu>

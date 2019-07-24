@@ -35,14 +35,14 @@ public class BookingAdapter extends ArrayAdapter<Bookings> {
         tvCleaner = rowView.findViewById(R.id.textViewCleaner);
 
         Bookings currentBooking = bookingsList.get(position);
-        tvS.setText(currentBooking.getService());
-        tvD.setText(currentBooking.getDate());
-        tvT.setText(currentBooking.getTime());
-        tvST.setText(currentBooking.getStreet());
-        tvPC.setText(currentBooking.getPostal());
-        tvC.setText(currentBooking.getContact());
-        tvE.setText(currentBooking.getEmail());
-        tvCleaner.setText(currentBooking.getCleaner());
+        tvS.setText("Service: " + currentBooking.getService());
+        tvD.setText("Date: " + currentBooking.getDate());
+        tvT.setText("Time: " + currentBooking.getTime());
+        tvST.setText("Address: " + currentBooking.getStreet());
+        tvPC.setText("Postal code: " + currentBooking.getPostal());
+        tvC.setText("Contact: " + currentBooking.getContact());
+        tvE.setText("Email: " + currentBooking.getEmail());
+        tvCleaner.setText("Cleaner name: " + currentBooking.getCleaner());
 
         return rowView;
     }

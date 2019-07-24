@@ -43,4 +43,6 @@
     <string name="excellent">Excellent</string>
     <string name="feedback">We Care. Please Share.</string>
     <string name="enquiries">Feedback</string>
+    <string name="logout">Logout</string>
+    <string name="change">Change Password</string>
 </resources>

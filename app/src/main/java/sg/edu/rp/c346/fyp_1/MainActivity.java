@@ -247,6 +247,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.view_feedback:
                 startActivity(new Intent(MainActivity.this, Feedback.class));
                 return true;
+            case R.id.nav_change:
+                startActivity(new Intent(MainActivity.this, UpdatePassword.class));
+                return true;
+            case R.id.logout:
+                startActivity(new Intent(MainActivity.this, Home.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

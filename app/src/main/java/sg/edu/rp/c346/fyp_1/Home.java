@@ -229,11 +229,11 @@ public class Home extends AppCompatActivity {
             case R.id.view_feedback:
                 startActivity(new Intent(Home.this, Feedback.class));
                 return true;
-            case R.id.view_profile:
-                startActivity(new Intent(Home.this, ProfileActivity.class));
-                return true;
-            case R.id.view_password:
+            case R.id.nav_change:
                 startActivity(new Intent(Home.this, UpdatePassword.class));
+                return true;
+            case R.id.logout:
+                startActivity(new Intent(Home.this, Home.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

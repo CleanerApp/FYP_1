@@ -94,10 +94,10 @@ public class ServiceList extends AppCompatActivity {
             case R.id.view_feedback:
                 startActivity(new Intent(ServiceList.this, Feedback.class));
                 return true;
-            case R.id.view_password:
+            case R.id.nav_change:
                 startActivity(new Intent(ServiceList.this, UpdatePassword.class));
                 return true;
-            case R.id.view_logout:
+            case R.id.logout:
                 startActivity(new Intent(ServiceList.this, Home.class));
                 return true;
             default:

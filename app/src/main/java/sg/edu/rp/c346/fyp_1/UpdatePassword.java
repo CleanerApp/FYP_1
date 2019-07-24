@@ -190,7 +190,10 @@ public class UpdatePassword extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(UpdatePassword.this, CleanerInformation.class));
                 return true;
-            case R.id.view_logout:
+            case R.id.nav_change:
+                startActivity(new Intent(UpdatePassword.this, UpdatePassword.class));
+                return true;
+            case R.id.logout:
                 startActivity(new Intent(UpdatePassword.this, Home.class));
                 return true;
             default:
