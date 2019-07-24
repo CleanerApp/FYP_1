@@ -244,9 +244,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.view_cleaner:
                 startActivity(new Intent(MainActivity.this, CleanerInformation.class));
                 return true;
-            case R.id.view_profile:
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                return true;
             case R.id.view_feedback:
                 startActivity(new Intent(MainActivity.this, Feedback.class));
                 return true;
