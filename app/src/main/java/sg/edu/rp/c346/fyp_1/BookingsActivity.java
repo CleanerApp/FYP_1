@@ -24,6 +24,7 @@ public class BookingsActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ArrayList<Bookings> alBookings;
     ArrayAdapter aaBookings;
+    Intent i, intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class BookingsActivity extends AppCompatActivity {
         lvBookings = findViewById(R.id.listViewBookings);
         db = FirebaseFirestore.getInstance();
         alBookings = new ArrayList<>();
+        i = getIntent();
 
         aaBookings = new BookingAdapter(BookingsActivity.this, R.layout.row_bookings, alBookings);
         lvBookings.setAdapter(aaBookings);
@@ -89,7 +91,11 @@ public class BookingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.option_menu, menu);
+        if (i.getExtras() != null){
+            getMenuInflater().inflate(R.menu.guest_menu, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.option_menu, menu);
+        }
         return true;
     }
 
@@ -97,31 +103,40 @@ public class BookingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(BookingsActivity.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(BookingsActivity.this, MainActivity.class));
+                intent = new Intent(BookingsActivity.this, Home.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.contact_us:
-                startActivity(new Intent(BookingsActivity.this, contactus.class));
+                intent = new Intent(BookingsActivity.this, contactus.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(BookingsActivity.this, ServiceList.class));
+                intent = new Intent(BookingsActivity.this, ServiceList.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_bookings:
-                startActivity(new Intent(BookingsActivity.this, BookingsActivity.class));
+                intent = new Intent(BookingsActivity.this, BookingsActivity.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_cleaner:
-                startActivity(new Intent(BookingsActivity.this, CleanerInformation.class));
+                intent = new Intent(BookingsActivity.this, CleanerInformation.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_feedback:
-                startActivity(new Intent(BookingsActivity.this, Feedback.class));
+                intent = new Intent(BookingsActivity.this, Feedback.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.nav_change:
                 startActivity(new Intent(BookingsActivity.this, UpdatePassword.class));
                 return true;
             case R.id.logout:
-                startActivity(new Intent(BookingsActivity.this, Home.class));
+                startActivity(new Intent(BookingsActivity.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

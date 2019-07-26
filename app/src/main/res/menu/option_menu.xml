@@ -6,10 +6,6 @@
             android:title="@string/home_name" />
 
         <item
-            android:id="@+id/sign_in"
-            android:title="@string/sign_in" />
-
-        <item
             android:id="@+id/contact_us"
             android:title="@string/contact_us" />
 

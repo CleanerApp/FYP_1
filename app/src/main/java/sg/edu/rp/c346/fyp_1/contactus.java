@@ -18,13 +18,14 @@ public class contactus extends AppCompatActivity {
 TextView a, b, c;
 FirebaseFirestore db = FirebaseFirestore.getInstance();
 DocumentReference docRef = db.collection("Company").document("p4C5WYZfyCbGkXHsLdhm");
+    Intent i, intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contactus);
 
-
+        i = getIntent();
         a = findViewById(R.id.textView6);
         b = findViewById(R.id.textView7);
         c = findViewById(R.id.textView8);
@@ -62,7 +63,11 @@ DocumentReference docRef = db.collection("Company").document("p4C5WYZfyCbGkXHsLd
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu, menu);
+        if (i.getExtras() != null){
+            inflater.inflate(R.menu.guest_menu, menu);
+        }else{
+            inflater.inflate(R.menu.option_menu, menu);
+        }
         return true;
     }
 
@@ -70,28 +75,35 @@ DocumentReference docRef = db.collection("Company").document("p4C5WYZfyCbGkXHsLd
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(contactus.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(contactus.this, MainActivity.class));
+                intent = new Intent(contactus.this, Home.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.contact_us:
-                startActivity(new Intent(contactus.this, contactus.class));
+                intent = new Intent(contactus.this, contactus.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(contactus.this, ServiceList.class));
+                intent = new Intent(contactus.this, ServiceList.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_bookings:
-                startActivity(new Intent(contactus.this, BookingsActivity.class));
+                intent = new Intent(contactus.this, BookingsActivity.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_cleaner:
-                startActivity(new Intent(contactus.this, CleanerInformation.class));
+                intent = new Intent(contactus.this, CleanerInformation.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.nav_change:
                 startActivity(new Intent(contactus.this, UpdatePassword.class));
                 return true;
             case R.id.logout:
-                startActivity(new Intent(contactus.this, Home.class));
+                startActivity(new Intent(contactus.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -18,7 +18,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class CleanerInformation extends AppCompatActivity {
-
+    Intent i, intent;
     ListView lvCleaner;
     FirebaseFirestore db;
     ArrayList<Cleaner> alCleaner;
@@ -32,6 +32,7 @@ public class CleanerInformation extends AppCompatActivity {
         lvCleaner = findViewById(R.id.lvInformation);
         db = FirebaseFirestore.getInstance();
         alCleaner = new ArrayList<>();
+        i = getIntent();
 
         db.collection("Cleaner").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -59,7 +60,11 @@ public class CleanerInformation extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.option_menu, menu);
+        if (i.getExtras() != null){
+            getMenuInflater().inflate(R.menu.guest_menu, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.option_menu, menu);
+        }
         return true;
     }
 
@@ -67,31 +72,40 @@ public class CleanerInformation extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(CleanerInformation.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(CleanerInformation.this, MainActivity.class));
+                intent = new Intent(CleanerInformation.this, Home.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.contact_us:
-                startActivity(new Intent(CleanerInformation.this, contactus.class));
+                intent = new Intent(CleanerInformation.this, contactus.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(CleanerInformation.this, ServiceList.class));
+                intent = new Intent(CleanerInformation.this, ServiceList.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_bookings:
-                startActivity(new Intent(CleanerInformation.this, BookingsActivity.class));
+                intent = new Intent(CleanerInformation.this, BookingsActivity.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_cleaner:
-                startActivity(new Intent(CleanerInformation.this, CleanerInformation.class));
+                intent = new Intent(CleanerInformation.this, CleanerInformation.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_feedback:
-                startActivity(new Intent(CleanerInformation.this, Feedback.class));
+                intent = new Intent(CleanerInformation.this, Feedback.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.nav_change:
                 startActivity(new Intent(CleanerInformation.this, UpdatePassword.class));
                 return true;
             case R.id.logout:
-                startActivity(new Intent(CleanerInformation.this, Home.class));
+                startActivity(new Intent(CleanerInformation.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

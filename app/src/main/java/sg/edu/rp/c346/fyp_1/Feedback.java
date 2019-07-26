@@ -32,7 +32,7 @@ public class Feedback extends AppCompatActivity {
     Button btnSubmit;
     String follow, contact;
     String name, num, email;
-
+    Intent i, intent;
     FirebaseFirestore db;
     final Map<String, String> feedback = new HashMap<>();
 
@@ -42,7 +42,7 @@ public class Feedback extends AppCompatActivity {
         setContentView(R.layout.activity_feedback);
 
         db = FirebaseFirestore.getInstance();
-
+        i = getIntent();
         cbContact = findViewById(R.id.cbContact);
         cbFollow = findViewById(R.id.cbFollow);
 
@@ -165,7 +165,11 @@ public class Feedback extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.option_menu, menu);
+        if (i.getExtras() != null){
+            getMenuInflater().inflate(R.menu.guest_menu, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.option_menu, menu);
+        }
         return true;
     }
 
@@ -173,28 +177,35 @@ public class Feedback extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(Feedback.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(Feedback.this, MainActivity.class));
+                intent = new Intent(Feedback.this, Home.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.contact_us:
-                startActivity(new Intent(Feedback.this, contactus.class));
+                intent = new Intent(Feedback.this, contactus.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(Feedback.this, ServiceList.class));
+                intent = new Intent(Feedback.this, ServiceList.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_bookings:
-                startActivity(new Intent(Feedback.this, BookingsActivity.class));
+                intent = new Intent(Feedback.this, BookingsActivity.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_cleaner:
-                startActivity(new Intent(Feedback.this, CleanerInformation.class));
+                intent = new Intent(Feedback.this, CleanerInformation.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.nav_change:
                 startActivity(new Intent(Feedback.this, UpdatePassword.class));
                 return true;
             case R.id.logout:
-                startActivity(new Intent(Feedback.this, Home.class));
+                startActivity(new Intent(Feedback.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

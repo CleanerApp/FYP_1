@@ -29,16 +29,15 @@
             android:label="@string/view_name" />
         <activity
             android:name=".Home"
-            android:label="@string/home_name">
+            android:label="@string/home_name" />
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/sign_in" />
         <activity
             android:name=".contactus"
             android:label="@string/contact_us" />

@@ -23,6 +23,7 @@ public class ServiceList extends AppCompatActivity {
     ListView lvService;
     ArrayList<Service> alService;
     ArrayAdapter aaService;
+    Intent i, intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class ServiceList extends AppCompatActivity {
         setContentView(R.layout.activity_service_list);
         lvService = findViewById(R.id.listViewService);
 
+        i = getIntent();
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         alService = new ArrayList<>();
 
@@ -66,7 +68,11 @@ public class ServiceList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.option_menu, menu);
+        if (i.getExtras() != null){
+            getMenuInflater().inflate(R.menu.guest_menu, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.option_menu, menu);
+        }
         return true;
     }
 
@@ -74,31 +80,40 @@ public class ServiceList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(ServiceList.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(ServiceList.this, MainActivity.class));
+                intent = new Intent(ServiceList.this, Home.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.contact_us:
-                startActivity(new Intent(ServiceList.this, contactus.class));
+                intent = new Intent(ServiceList.this, contactus.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(ServiceList.this, ServiceList.class));
+                intent = new Intent(ServiceList.this, ServiceList.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_bookings:
-                startActivity(new Intent(ServiceList.this, BookingsActivity.class));
+                intent = new Intent(ServiceList.this, BookingsActivity.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_cleaner:
-                startActivity(new Intent(ServiceList.this, CleanerInformation.class));
+                intent = new Intent(ServiceList.this, CleanerInformation.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_feedback:
-                startActivity(new Intent(ServiceList.this, Feedback.class));
+                intent = new Intent(ServiceList.this, Feedback.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.nav_change:
                 startActivity(new Intent(ServiceList.this, UpdatePassword.class));
                 return true;
             case R.id.logout:
-                startActivity(new Intent(ServiceList.this, Home.class));
+                startActivity(new Intent(ServiceList.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -43,6 +43,7 @@ public class Home extends AppCompatActivity {
     int currentMinute;
     String amPm;
     Boolean Service, Date, Time, Street, Postal, Contact, Email;
+    Intent i, intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class Home extends AppCompatActivity {
         etEmail = findViewById(R.id.editTextEmail);
         Email = false;
         btnProceed = findViewById(R.id.button);
+
+        i = getIntent();
 
         serve = new ArrayList<String>();
         serve.add("Select a Service");
@@ -201,7 +204,11 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.option_menu, menu);
+        if (i.getExtras() != null){
+            getMenuInflater().inflate(R.menu.guest_menu, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.option_menu, menu);
+        }
         return true;
     }
 
@@ -209,31 +216,40 @@ public class Home extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(Home.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(Home.this, MainActivity.class));
+                intent = new Intent(Home.this, Home.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.contact_us:
-                startActivity(new Intent(Home.this, contactus.class));
+                intent = new Intent(Home.this, contactus.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_service:
-                startActivity(new Intent(Home.this, ServiceList.class));
+                intent = new Intent(Home.this, ServiceList.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_bookings:
-                startActivity(new Intent(Home.this, BookingsActivity.class));
+                intent = new Intent(Home.this, BookingsActivity.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_cleaner:
-                startActivity(new Intent(Home.this, CleanerInformation.class));
+                intent = new Intent(Home.this, CleanerInformation.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.view_feedback:
-                startActivity(new Intent(Home.this, Feedback.class));
+                intent = new Intent(Home.this, Feedback.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
                 return true;
             case R.id.nav_change:
                 startActivity(new Intent(Home.this, UpdatePassword.class));
                 return true;
             case R.id.logout:
-                startActivity(new Intent(Home.this, Home.class));
+                startActivity(new Intent(Home.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

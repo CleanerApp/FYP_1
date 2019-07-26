@@ -33,11 +33,10 @@ import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
     EditText edtUser, edtPassword;
-    TextView userSignUp;
+    TextView userSignUp, tvForgotPassword, tvGuest;
     Button btnLogin;
 
     ProgressDialog progressDialog;
-    TextView tvForgotPassword;
     Boolean Username, Password;
 
     FirebaseFirestore docRef;
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         userSignUp = findViewById(R.id.tvSignUp);
         btnLogin = findViewById(R.id.btnlogin);
         tvForgotPassword = findViewById(R.id.tvForgotPwd);
+        tvGuest = findViewById(R.id.textViewGuest);
 
         progressDialog = new ProgressDialog(this);
 
@@ -91,6 +91,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, signup.class));
 
+            }
+        });
+
+        tvGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Home.class);
+                intent.putExtra("sign", "guest");
+                startActivity(intent);
             }
         });
 
@@ -215,49 +224,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }*/
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.home:
-                startActivity(new Intent(MainActivity.this, Home.class));
-                return true;
-            case R.id.sign_in:
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
-                return true;
-            case R.id.contact_us:
-                startActivity(new Intent(MainActivity.this, contactus.class));
-                return true;
-            case R.id.view_service:
-                startActivity(new Intent(MainActivity.this, ViewActivity.class));
-                return true;
-            case R.id.view_bookings:
-                startActivity(new Intent(MainActivity.this, BookingsActivity.class));
-                return true;
-            case R.id.view_cleaner:
-                startActivity(new Intent(MainActivity.this, CleanerInformation.class));
-                return true;
-            case R.id.view_feedback:
-                startActivity(new Intent(MainActivity.this, Feedback.class));
-                return true;
-            case R.id.nav_change:
-                startActivity(new Intent(MainActivity.this, UpdatePassword.class));
-                return true;
-            case R.id.logout:
-                startActivity(new Intent(MainActivity.this, Home.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     private Boolean validate() {
         Boolean result = false;

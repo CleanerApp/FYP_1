@@ -36,7 +36,6 @@ public class UpdatePassword extends AppCompatActivity {
 
     Button update;
     EditText etPassword, etNewPassword, etRepeatPassword, etEmail;
-
     FirebaseAuth firebaseAuth;
     DocumentReference docRef;
     FirebaseUser firebaseUser;
@@ -51,7 +50,6 @@ public class UpdatePassword extends AppCompatActivity {
         etNewPassword = findViewById(R.id.etNewPassword);
         etRepeatPassword = findViewById(R.id.etRepeatPassword);
         etEmail = findViewById(R.id.etEmail);
-
         //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         update.setOnClickListener(new View.OnClickListener() {
@@ -175,9 +173,6 @@ public class UpdatePassword extends AppCompatActivity {
             case R.id.home:
                 startActivity(new Intent(UpdatePassword.this, Home.class));
                 return true;
-            case R.id.sign_in:
-                startActivity(new Intent(UpdatePassword.this, MainActivity.class));
-                return true;
             case R.id.contact_us:
                 startActivity(new Intent(UpdatePassword.this, contactus.class));
                 return true;
@@ -194,7 +189,7 @@ public class UpdatePassword extends AppCompatActivity {
                 startActivity(new Intent(UpdatePassword.this, UpdatePassword.class));
                 return true;
             case R.id.logout:
-                startActivity(new Intent(UpdatePassword.this, Home.class));
+                startActivity(new Intent(UpdatePassword.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
