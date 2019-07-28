@@ -197,8 +197,10 @@ public class Home extends AppCompatActivity {
                 timePickerDialog = new TimePickerDialog(Home.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        if (hourOfDay >= 12){
+                        if (hourOfDay > 12){
                             hourOfDay -= 12;
+                            amPm = "PM";
+                        } else if (hourOfDay == 12){
                             amPm = "PM";
                         } else{
                             amPm = "AM";

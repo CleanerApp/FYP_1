@@ -66,9 +66,9 @@ public class Pay extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
-                                    if (document.exists()){
+                                    if (document.exists()) {
                                         Double discount = document.getDouble("discount");
                                         Double price = 36 - discount;
                                         tvFinal.setText("S$ " + price);
@@ -90,16 +90,16 @@ public class Pay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String select = spnType.getSelectedItem().toString();
-                if (select.equalsIgnoreCase("Select a Payment Type")){
+                if (select.equalsIgnoreCase("Select a Payment Type")) {
                     Toast.makeText(Pay.this, "Select a Payment Type", Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     Type = true;
                 }
 
                 final Map<String, String> booking = new HashMap<>();
-                if (note.isEmpty() == false){
+                if (note.isEmpty() == false) {
                     booking.put("Notes", note);
-                } else{
+                } else {
                     booking.put("Notes", null);
                 }
                 booking.put("Service", service);
@@ -111,22 +111,24 @@ public class Pay extends AppCompatActivity {
                 booking.put("Email", email);
                 booking.put("Cost", tvFinal.getText().toString());
 
-                if (Type == true){
+
+                if (Type == true) {
                     booking.put("Payment Type", spnType.getSelectedItem().toString());
-                    db.collection("Booking").add(booking)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(Pay.this, "Booking Recorded", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(Pay.this, "Booking Failure to Record", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    db.collection("Booking").document(email)
+                            .set(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(Pay.this, "Booking Recorded", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Pay.this, "Booking not Record", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
                 }
             }
         });
@@ -134,7 +136,7 @@ public class Pay extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed () {
+    public void onBackPressed() {
         super.onBackPressed();
     }
 }

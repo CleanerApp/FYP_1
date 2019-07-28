@@ -41,11 +41,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="15"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
             android:gravity="right"
-            android:text="S$ 36"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:text="S$ 36.0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -107,11 +107,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="15"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="S$ 36"
             android:gravity="right"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:text="S$ 36.0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
