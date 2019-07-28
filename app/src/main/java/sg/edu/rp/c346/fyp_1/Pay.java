@@ -102,11 +102,11 @@ public class Pay extends AppCompatActivity {
                 } else {
                     booking.put("Notes", null);
                 }
-                booking.put("Service", service);
+                booking.put("Service Type", service);
                 booking.put("Date", date);
                 booking.put("Time", time);
                 booking.put("Street", street);
-                booking.put("Postal", postal);
+                booking.put("Postal Code", postal);
                 booking.put("Contact", contact);
                 booking.put("Email", email);
                 booking.put("Cost", tvFinal.getText().toString());
