@@ -28,22 +28,38 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import sg.edu.rp.c346.fyp_1.Common.Common;
 import sg.edu.rp.c346.fyp_1.Model.UserProfile;
 
 public class UpdatePassword extends AppCompatActivity {
-
     Button update;
     EditText etPassword, etNewPassword, etRepeatPassword, etEmail;
     FirebaseAuth firebaseAuth;
     DocumentReference docRef;
     FirebaseUser firebaseUser;
+    Boolean Email, Old, New, Repeat;
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    //"(?=.*[0-9])" +         //at least 1 digit
+                    //"(?=.*[a-z])" +         //at least 1 lower case letter
+                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      //any letter
+                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_password);
+        Email = false;
+        Old = false;
+        New = false;
+        Repeat = false;
 
         update = findViewById(R.id.btnUpdatePassword);
         etPassword = findViewById(R.id.etPassword);
@@ -55,44 +71,71 @@ public class UpdatePassword extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String user_email = etEmail.getText().toString().trim();
-                final String password = etPassword.getText().toString().trim();
-                final String newpassword = etNewPassword.getText().toString().trim();
-                final String repassword = etRepeatPassword.getText().toString().trim();
+                if (etEmail.getText().toString().equals("")) {
+                    etEmail.setError("Email is required");
+                } else {
+                    Email = true;
+                }
+                if (etPassword.getText().toString().equals("")) {
+                    etPassword.setError("Old Password required");
+                } else {
+                    Old = true;
+                }
+                if (etNewPassword.getText().toString().equals("")) {
+                    etNewPassword.setError("New Password required");
+                } else if (!PASSWORD_PATTERN.matcher(etNewPassword.getText().toString()).matches()){
+                    etNewPassword.setError("Password too weak, must contain at least one special character");
+                } else{
+                    New = true;
+                }
+                if (etRepeatPassword.getText().toString().equals("")) {
+                    etRepeatPassword.setError("Repeat Password required");
+                } else {
+                    Repeat = true;
+                }
 
-                final FirebaseFirestore db = FirebaseFirestore.getInstance();
-                final DocumentReference docRef = db.collection("users").document(user_email);
+                if (Email == true && Old == true && New == true && Repeat == true) {
+                    final String user_email = etEmail.getText().toString().trim();
+                    final String password = etPassword.getText().toString().trim();
+                    final String newpassword = etNewPassword.getText().toString().trim();
+                    final String repassword = etRepeatPassword.getText().toString().trim();
 
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()){
-                                if (password.equals(document.getString("userPassword"))){
-                                    if (newpassword.equals(repassword)){
-                                        docRef.update("userPassword", newpassword).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(UpdatePassword.this, "Password changed", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(UpdatePassword.this, Home.class));
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(UpdatePassword.this, "Failed to update", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                    } else{
-                                        etRepeatPassword.setError("Password not same!");
+                    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    final DocumentReference docRef = db.collection("users").document(user_email);
+
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    if (password.equals(document.getString("userPassword"))) {
+                                        if (newpassword.equals(repassword)) {
+                                            docRef.update("userPassword", newpassword).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(UpdatePassword.this, "Password changed", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(UpdatePassword.this, Home.class));
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(UpdatePassword.this, "Failed to update", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        } else {
+                                            etRepeatPassword.setError("Password not same!");
+                                        }
+                                    } else {
+                                        etPassword.setError("Not Old Password!");
                                     }
-                                } else{
-                                    etPassword.setError("Not Old Password!");
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                } else{
+                    Toast.makeText(UpdatePassword.this, "Fill in all required fields correctly", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -159,7 +202,6 @@ public class UpdatePassword extends AppCompatActivity {
 
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

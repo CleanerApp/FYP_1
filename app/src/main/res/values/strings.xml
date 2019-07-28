@@ -13,7 +13,7 @@
     <string name="date">Date:</string>
     <string name="start">Start Time:</string>
     <string name="end">End Time</string>
-    <string name="service">Service Type</string>
+    <string name="service">Service Type:</string>
     <string name="address">Address</string>
     <string name="street">Street:</string>
     <string name="postal_code">Postal Code:</string>
@@ -45,4 +45,10 @@
     <string name="enquiries">Feedback</string>
     <string name="logout">Logout</string>
     <string name="change">Change Password</string>
+    <string name="payment_type">Payment Type:</string>
+
+    <string-array name="type">
+        <item>Select a Payment Type</item>
+        <item>Cash</item>
+    </string-array>
 </resources>

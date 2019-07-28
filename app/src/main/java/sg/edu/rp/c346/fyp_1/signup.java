@@ -93,7 +93,7 @@ public class signup extends AppCompatActivity {
                                 docRef.collection("users").document(user_email).set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(signup.this, "Successfully Registered, Upload complete", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(signup.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
                                         finish();
                                         startActivity(new Intent(signup.this, MainActivity.class));
                                     }
@@ -108,6 +108,8 @@ public class signup extends AppCompatActivity {
                         }
                     });
 
+                } else{
+                    Toast.makeText(signup.this, "Fill in all required fields correctly", Toast.LENGTH_LONG).show();
                 }
 
             }

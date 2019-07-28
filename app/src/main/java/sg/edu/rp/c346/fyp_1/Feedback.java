@@ -81,7 +81,7 @@ public class Feedback extends AppCompatActivity {
                     db.collection("Feedback").add(feedback).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(Feedback.this, "Submitted Successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Feedback.this, "Feedback Submitted", Toast.LENGTH_LONG).show();
                             cbContact.setChecked(false);
                             cbFollow.setChecked(false);
                             etName.setText("");
@@ -93,14 +93,13 @@ public class Feedback extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            //Toast.makeText(Feedback.this, "Submitted Failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Feedback.this, "Feedback not Submitted", Toast.LENGTH_LONG).show();
                         }
                     });
 
+                } else{
+                    Toast.makeText(Feedback.this, "Fill in all required fields correctly", Toast.LENGTH_LONG).show();
                 }
-
-
-
             }
         });
 

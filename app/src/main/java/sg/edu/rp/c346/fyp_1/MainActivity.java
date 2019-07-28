@@ -35,10 +35,9 @@ public class MainActivity extends AppCompatActivity {
     EditText edtUser, edtPassword;
     TextView userSignUp, tvForgotPassword, tvGuest;
     Button btnLogin;
-
     ProgressDialog progressDialog;
-    Boolean Username, Password;
-
+    Boolean Username, Password, Email, SecureCode;
+    AlertDialog ad;
     FirebaseFirestore docRef;
     FirebaseAuth firebaseAuth;
     String email, name, password, securecode;
@@ -49,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Username = false;
         Password = false;
+        Email = false;
+        SecureCode = false;
 
         edtUser = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
@@ -68,20 +69,20 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtUser.getText().toString().equals("")){
-                    edtUser.setError("Username required");
-                } else{
+                if (edtUser.getText().toString().equals("")) {
+                    edtUser.setError("Email required");
+                } else {
                     Username = true;
                 }
-                if (edtPassword.getText().toString().equals("")){
+                if (edtPassword.getText().toString().equals("")) {
                     edtPassword.setError("Password required");
-                } else{
+                } else {
                     Password = true;
                 }
-                if (Username == true && Password == true){
+                if (Username == true && Password == true) {
                     validate(edtUser.getText().toString(), edtPassword.getText().toString());
-                } else{
-                    Toast.makeText(MainActivity.this, "Fill in all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Fill in all fields correctly", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -140,30 +141,45 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                db.collection("users").document(etEmail.getText().toString())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()){
-                                if (etEmail.getText().toString().equals(document.getString("userEmail"))){
-                                    if (etSecureCode.getText().toString().equals(document.getString("userSecureCode"))){
-                                        db.collection("users").document(etEmail.getText().toString())
-                                                .update("userPassword", "Password123");
-                                        String password = document.getString("userPassword");
-                                        Toast.makeText(MainActivity.this, "The password is: Password123", Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Wrong secure code", Toast.LENGTH_SHORT).show();
+                if (etEmail.getText().toString().equals("")) {
+                    etEmail.setError("Email required");
+                } else {
+                    Email = true;
+                }
+                if (etSecureCode.getText().toString().equals("")) {
+                    etSecureCode.setError("Secure Code required");
+                } else {
+                    SecureCode = true;
+                }
+
+                if (Email == true && SecureCode == true) {
+                    db.collection("users").document(etEmail.getText().toString())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            if (etEmail.getText().toString().equals(document.getString("userEmail"))) {
+                                                if (etSecureCode.getText().toString().equals(document.getString("userSecureCode"))) {
+                                                    db.collection("users").document(etEmail.getText().toString())
+                                                            .update("userPassword", "Password123");
+                                                    String password = document.getString("userPassword");
+                                                    Toast.makeText(MainActivity.this, "The password is: Password123", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    Toast.makeText(MainActivity.this, "Wrong secure code", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else {
+                                                Toast.makeText(MainActivity.this, "Wrong Username", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
                                     }
-                                } else{
-                                    Toast.makeText(MainActivity.this, "Wrong Username", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                        }
-                    }
-                });
+                            });
+                } else{
+                    Toast.makeText(MainActivity.this, "Fill in all required fields correctly", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -178,8 +194,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void validate(final String userEmail, final String userPassword) {
-            progressDialog.setMessage("Verifying your account.... ");
-            progressDialog.show();
+        progressDialog.setMessage("Verifying your account.... ");
+        progressDialog.show();
 
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final DocumentReference docRef = db.collection("users").document(userEmail);
@@ -187,22 +203,22 @@ public class MainActivity extends AppCompatActivity {
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (document.exists()){
-                        if (userEmail.equals(document.getString("userEmail"))){
-                            if (userPassword.equals(document.getString("userPassword"))){
+                    if (document.exists()) {
+                        if (userEmail.equals(document.getString("userEmail"))) {
+                            if (userPassword.equals(document.getString("userPassword"))) {
                                 progressDialog.dismiss();
 //                                Intent intent = new Intent(MainActivity.this, Home.class);
 //                                intent.putExtra("email", edtUser.getText().toString());
 //                                startActivity(intent);
                                 startActivity(new Intent(MainActivity.this, Home.class));
                                 //checkEmailVerification();
-                            } else{
+                            } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(MainActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                             }
-                        } else{
+                        } else {
                             progressDialog.dismiss();
                             Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }

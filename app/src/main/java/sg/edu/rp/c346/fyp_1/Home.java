@@ -122,6 +122,8 @@ public class Home extends AppCompatActivity {
                 }
                 if (etContact.getText().toString().equals("")){
                     etContact.setError("Contact is required!");
+                } else if(etContact.length() != 8){
+                    etContact.setError("Contact contains 8 numbers");
                 } else{
                     Contact = true;
                 }
@@ -151,6 +153,13 @@ public class Home extends AppCompatActivity {
                     etNote.setText("");
                     etContact.setText("");
                     etEmail.setText("");
+                    Service = false;
+                    Date = false;
+                    Time = false;
+                    Street = false;
+                    Postal = false;
+                    Contact = false;
+                    Email = false;
                 } else{
                     Toast.makeText(Home.this, "Fill in all Required fields correctly", Toast.LENGTH_LONG).show();
                 }

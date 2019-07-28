@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,11 @@
     android:background="@drawable/white"
     android:orientation="vertical"
     tools:context=".Home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -28,7 +33,8 @@
             android:id="@+id/textViewService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:layout_weight="1"
+            android:ems="5"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
@@ -180,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
+            android:ems="11"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
@@ -191,7 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="15"
+            android:ems="14"
             android:gravity="start|top"
             android:inputType="textMultiLine" />
     </LinearLayout>
@@ -264,4 +270,6 @@
         android:layout_marginTop="20dp"
         android:text="@string/proceed" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
