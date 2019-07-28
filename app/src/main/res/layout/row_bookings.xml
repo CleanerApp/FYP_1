@@ -17,6 +17,14 @@
             android:textColor="@color/colorPrimaryDark" />
 
         <TextView
+            android:id="@+id/textViewCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
             android:id="@+id/textViewCleaner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,6 +63,14 @@
             android:textColor="@color/colorPrimaryDark"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/textViewPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/textViewC"

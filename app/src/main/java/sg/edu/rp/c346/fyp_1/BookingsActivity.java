@@ -70,16 +70,18 @@ public class BookingsActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             alBookings.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String service = (String) document.getData().get("Service");
+                                String service = (String) document.getData().get("Service Type");
                                 String date = (String) document.getData().get("Date");
                                 String time = (String) document.getData().get("Time");
                                 String street = (String) document.getData().get("Street");
-                                String postal_code = (String) document.getData().get("Postal");
+                                String postal_code = (String) document.getData().get("Postal Code");
                                 String notes = (String) document.getData().get("Notes");
                                 String contact = (String) document.getData().get("Contact");
                                 String email = (String) document.getData().get("Email");
                                 String cleaner = (String) document.getData().get("Name");
-                                Bookings bb = new Bookings(service, date, time, street, postal_code, notes, contact, email, cleaner);
+                                String cost = (String) document.getData().get("Cost");
+                                String payment = (String) document.getData().get("Payment Type");
+                                Bookings bb = new Bookings(service, date, time, street, postal_code, notes, contact, email, cleaner, cost, payment);
                                 alBookings.add(bb);
                             }
                             aaBookings.notifyDataSetChanged();

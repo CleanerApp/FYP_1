@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class BookingAdapter extends ArrayAdapter<Bookings> {
-    private TextView tvS, tvD, tvT, tvST, tvPC, tvC, tvE, tvCleaner;
+    private TextView tvS, tvD, tvT, tvST, tvPC, tvC, tvE, tvCleaner, tvCost, tvPayment;
     private Context parent_context;
     private ArrayList<Bookings> bookingsList;
 
@@ -33,16 +33,20 @@ public class BookingAdapter extends ArrayAdapter<Bookings> {
         tvC = rowView.findViewById(R.id.textViewC);
         tvE = rowView.findViewById(R.id.textViewE);
         tvCleaner = rowView.findViewById(R.id.textViewCleaner);
+        tvCost = rowView.findViewById(R.id.textViewCost);
+        tvPayment = rowView.findViewById(R.id.textViewPayment);
 
         Bookings currentBooking = bookingsList.get(position);
-        tvS.setText("Service: " + currentBooking.getService());
+        tvS.setText("Service Type: " + currentBooking.getService());
         tvD.setText("Date: " + currentBooking.getDate());
         tvT.setText("Time: " + currentBooking.getTime());
         tvST.setText("Address: " + currentBooking.getStreet());
-        tvPC.setText("Postal code: " + currentBooking.getPostal());
+        tvPC.setText("Postal Code: " + currentBooking.getPostal());
         tvC.setText("Contact: " + currentBooking.getContact());
         tvE.setText("Email: " + currentBooking.getEmail());
         tvCleaner.setText("Cleaner name: " + currentBooking.getCleaner());
+        tvCost.setText("Cost: " + currentBooking.getCost());
+        tvPayment.setText("Payment Type: " + currentBooking.getPayment());
 
         return rowView;
     }

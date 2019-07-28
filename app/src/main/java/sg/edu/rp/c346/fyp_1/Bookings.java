@@ -12,8 +12,13 @@ public class Bookings implements Serializable {
     private String contact;
     private String email;
     private String cleaner;
+    private String cost;
+    private String payment;
 
-    public Bookings(String service, String date, String time, String street, String postal, String notes, String contact, String email, String cleaner) {
+    public Bookings() {
+    }
+
+    public Bookings(String service, String date, String time, String street, String postal, String notes, String contact, String email, String cleaner, String cost, String payment) {
         this.service = service;
         this.date = date;
         this.time = time;
@@ -23,6 +28,8 @@ public class Bookings implements Serializable {
         this.contact = contact;
         this.email = email;
         this.cleaner = cleaner;
+        this.cost = cost;
+        this.payment = payment;
     }
 
     public String getService() {
@@ -95,5 +102,21 @@ public class Bookings implements Serializable {
 
     public void setCleaner(String cleaner) {
         this.cleaner = cleaner;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 }
